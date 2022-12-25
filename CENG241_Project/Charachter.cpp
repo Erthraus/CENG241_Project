@@ -4,7 +4,7 @@
 
 int Charachter::Attack() {
 	attackPow *= attackCoef;
-	randomAttack = rand() % attackPow - 1;
+	randomAttack = rand() % attackPow + 1;
 }
 
 int Charachter::decDMG() {
