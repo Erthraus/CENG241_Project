@@ -3,6 +3,7 @@
 #include<iostream>
 #include<time.h>
 
-int Enemy::randomEnemy() {
-	int enemy = rand() % 4 - 1;
+Enemy::Enemy(int attackCoef, int healthCoef) {
+	this->attackCoef = attackCoef;
+	this->healthCoef = healthCoef;
 }
