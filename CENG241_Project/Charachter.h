@@ -1,7 +1,7 @@
 #pragma once
 class Charachter
 {
-private:
+protected:
 	int HP;
 	int attackPow;
 	int attackCoef;
