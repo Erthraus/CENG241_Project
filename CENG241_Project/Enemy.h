@@ -3,8 +3,8 @@
 class Enemy:public Charachter
 {
 public:
-	Enemy(int HP,int attackPow) {
-		this->HP = HP;
-	}
+	char arr[][10];
+	Enemy() {}
+	int randomEnemy();
 };
 
