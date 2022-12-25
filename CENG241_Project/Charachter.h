@@ -1,12 +1,13 @@
 #pragma once
+#include<string>
+using namespace std;
 class Charachter
 {
 protected:
-	int HP;
-	int attackPow;
+	int HP=10;
+	int attackPow=1;
 	int attackCoef;
 	int healthCoef;
-	int randomAttack;
 public:
 	Charachter();
 	int incHP();//heal-buff
