@@ -6,52 +6,50 @@
 
 using namespace std;
 
-void Scene::gotoxy(int x, int y)
+void Scene::gotoxy(int x, int y)	//Function to move cursor
 {
-	COORD pos = { x, y };
 	HANDLE output = GetStdHandle(STD_OUTPUT_HANDLE);
+	COORD pos = { x, y };
 	SetConsoleCursorPosition(output, pos);
 }
 
-/*void Scene::createMap()
+void Scene::setColor(short color = 10)
 {
-	for (size_t i{ 0 }; i < LEN; i++)
-	{
-		map[0][i] = '-';
-		map[LEN-1][i] = '-';
-	}
+	HANDLE output = GetStdHandle(STD_OUTPUT_HANDLE);
+	CONSOLE_CURSOR_INFO Cursor;
+	GetConsoleCursorInfo(output, &Cursor);
+	Cursor.bVisible = false;
+	SetConsoleCursorInfo(output, &Cursor);
+	SetConsoleTextAttribute(output, color);
+}
 
-	for (size_t i{ 1 }; i < WID; i++)
-	{
-		map[i][0] = '|';
-		map[i][WID - 1] = '|';
-	}
-}*/
-
-/*void Scene::drawMap()
+void Scene::changeFontSize(short height = 36, short width = 36)
 {
-	for (size_t i{ 0 }; i < LEN; i++)
-	{
-		for (size_t j{ 0 }; j < WID; j++)
-		{
-			if (map[i][j] == NULL)
-				continue;
-			cout << map[i][j];
-		}
-	}
-}*/
+	static CONSOLE_FONT_INFOEX  font;
+	font.cbSize = sizeof(CONSOLE_FONT_INFOEX);
+	HANDLE output = GetStdHandle(STD_OUTPUT_HANDLE);
+	GetCurrentConsoleFontEx(output, 0, &font);
+	font.FontWeight = 700;
+	font.dwFontSize.X = height;
+	font.dwFontSize.Y = width;
+	SetCurrentConsoleFontEx(output, NULL, &font);
+}
 
-void Scene::drawMap()
+void Scene::drawMap()	//Function to draw Map
 {
-	for (size_t i{0}; i < WID; i++)
+	changeFontSize();
+
+	for (size_t i{1}; i < WID; i++)
 	{
 		gotoxy(i, 0);
+		cout << '-';
+		gotoxy(i, LEN - LEN/4);
 		cout << '-';
 		gotoxy(i, LEN);
 		cout << '-';
 	}
 
-	for (size_t i{1}; i < LEN; i++)
+	for (size_t i{0}; i < LEN + 1; i++)
 	{
 		gotoxy(0, i);
 		cout << '|';
@@ -60,7 +58,14 @@ void Scene::drawMap()
 	}
 }
 
-void Scene::controller(short *x, short *y)
+void Scene::drawUI()
+{
+	changeFontSize(100);
+	gotoxy(WID / 2 + WID / 5, 3 * LEN / 4 + 2);
+	cout << "FIGHT";
+}
+
+void Scene::controller(short *x, short *y)	//Function to get user input and change gotoxy parameters 
 {
     if (_kbhit()) {
         switch (_getch()) {
@@ -87,19 +92,22 @@ void Scene::controller(short *x, short *y)
     }
 }
 
-void Scene::setup()
+void Scene::setup()		//Sets up the game
 {
-	//createMap();
+	setColor();
+	changeFontSize(50, 50);
+	cout << "deneme";
 }
 
-void Scene::update()
+void Scene::update()	//For things which should be checked and updated constantly
 {
 	controller(&x, &y);
 }
 
-void Scene::draw()
+void Scene::draw()		//Draws frames
 {
 	drawMap();
+	drawUI();
 	gotoxy(x, y);
 	cout << character;
 }
