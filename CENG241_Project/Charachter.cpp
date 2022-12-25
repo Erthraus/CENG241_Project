@@ -4,6 +4,7 @@
 
 int Charachter::Attack() {
 	attackPow *= attackCoef;
+
 	int randomAttack = rand() % attackPow + 1;
 }
 
