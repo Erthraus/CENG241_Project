@@ -3,7 +3,8 @@
 
 int main()
 {
-	cout << "Hello There";
+	Engine engine;
+	engine.Run();
 
 	return 0;
 }
