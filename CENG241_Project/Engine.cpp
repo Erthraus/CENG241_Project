@@ -4,13 +4,12 @@
 void Engine::Run()
 {
 	scene.setup();
-	system("pause");
 
-	/*while (1)
+	while (1)
 	{
 		scene.update();
 		scene.draw();
 		Sleep(100);
 		system("cls");
-	}*/
+	}
 }

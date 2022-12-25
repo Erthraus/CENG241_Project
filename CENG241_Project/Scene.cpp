@@ -3,6 +3,7 @@
 #include <windows.h>
 #include <conio.h>
 #include <stdlib.h>
+#include <string>
 
 using namespace std;
 
@@ -23,27 +24,13 @@ void Scene::setColor(short color = 10)
 	SetConsoleTextAttribute(output, color);
 }
 
-void Scene::changeFontSize(short height = 36, short width = 36)
-{
-	static CONSOLE_FONT_INFOEX  font;
-	font.cbSize = sizeof(CONSOLE_FONT_INFOEX);
-	HANDLE output = GetStdHandle(STD_OUTPUT_HANDLE);
-	GetCurrentConsoleFontEx(output, 0, &font);
-	font.FontWeight = 700;
-	font.dwFontSize.X = height;
-	font.dwFontSize.Y = width;
-	SetCurrentConsoleFontEx(output, NULL, &font);
-}
-
 void Scene::drawMap()	//Function to draw Map
 {
-	changeFontSize();
-
 	for (size_t i{1}; i < WID; i++)
 	{
 		gotoxy(i, 0);
 		cout << '-';
-		gotoxy(i, LEN - LEN/4);
+		gotoxy(i, LEN - LEN/4 + 2);
 		cout << '-';
 		gotoxy(i, LEN);
 		cout << '-';
@@ -58,56 +45,115 @@ void Scene::drawMap()	//Function to draw Map
 	}
 }
 
-void Scene::drawUI()
+void Scene::drawArr(string arr[5], int size, COORD pos)
 {
-	changeFontSize(100);
-	gotoxy(WID / 2 + WID / 5, 3 * LEN / 4 + 2);
-	cout << "FIGHT";
+	for (int i{ 0 }; i < size; i++)
+	{
+		gotoxy(pos.X, pos.Y++);
+		cout << arr[i];
+	}
 }
 
-void Scene::controller(short *x, short *y)	//Function to get user input and change gotoxy parameters 
+void Scene::drawUI()
 {
-    if (_kbhit()) {
-        switch (_getch()) {
+	COORD pos;
+	int size{ 5 };
+	pos.X = WID * 3 / 5;
+	pos.Y = 3 * LEN / 4 + 4;
+	string* attack = new string[size];
+	string* defence = new string[size];
 
-        case 'w':
-			(*y)--;
-            break;
+	attack[0] = "    ^   -------  |   /  ";
+	attack[1] = "   / \\     |     |  /  ";
+	attack[2] = "  /---\\    |     |<    ";
+	attack[3] = " /     \\   |     |  \\ ";
+	attack[4] = "/       \\  |     |   \\";
+	
+	defence[0] = "|\\    -----  ----";
+	defence[1] = "| \\   |      |   ";
+	defence[2] = "|  |  |---   |--  ";
+	defence[3] = "| /   |      |    ";
+	defence[4] = "|/    -----  |    ";
 
-        case 's':
-			(*y)++;
-            break;
+	setColor(4);
+	drawArr(attack, size, pos);
 
-        case 'a':
-			(*x)--;
-            break;
+	pos.X = WID * 5 / 6;
+	setColor(3);
+	drawArr(defence, size, pos);
+}
 
-        case 'd':
-			(*x)++;
-            break;
+void Scene::updateCursor()
+{
+	if (_kbhit())
+	{
+		switch (_getch())
+		{
+		case 'a':
+			ch--;
+			break;
 
-        default:
-            break;
-        }
-    }
+		case 'd':
+			ch++;
+			break;
+
+		default:
+			break;
+		}
+	}
+
+	if (ch < 0)
+		ch = 1;
+
+	ch %= 2;
+}
+
+void Scene::drawCursor()
+{
+	setColor(6);
+	int size{ 3 };
+	COORD pos;
+	string* arrow = new string[size];
+	arrow[0] = " * ";
+	arrow[1] = "***";
+	arrow[2] = " * ";
+
+	if(ch)
+		pos.X = WID * 5 / 6 - 5;
+	else
+		pos.X = WID * 3 / 5 - 3;
+
+	pos.Y = 3 * LEN / 4 + 5;
+
+	switch (ch)
+	{
+		case 0:
+			drawArr(arrow, size, pos);
+			break;
+
+		case 1:
+			drawArr(arrow, size, pos);
+			break;
+
+		default:
+			break;
+	}
 }
 
 void Scene::setup()		//Sets up the game
 {
 	setColor();
-	changeFontSize(50, 50);
-	cout << "deneme";
 }
 
 void Scene::update()	//For things which should be checked and updated constantly
 {
-	controller(&x, &y);
+	updateCursor();
 }
 
 void Scene::draw()		//Draws frames
 {
+	setColor();
 	drawMap();
 	drawUI();
-	gotoxy(x, y);
-	cout << character;
+	drawCursor();
 }
