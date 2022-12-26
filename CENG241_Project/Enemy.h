@@ -9,6 +9,7 @@ public:
 		{
 			HP = 10;
 			attackPow = 1;
+			defencePow = 1;
 			attackCoef = 5;
 			healthCoef = 2;
 			maxHP = HP;
@@ -30,6 +31,7 @@ public:
 		{
 			HP = obj.HP;
 			attackPow = obj.attackPow;
+			defencePow = obj.defencePow;
 			attackCoef = obj.attackCoef;
 			healthCoef = obj.healthCoef;
 			maxHP = HP;
@@ -59,6 +61,7 @@ class Vampire :public Character
 		{
 			HP = 20;
 			attackPow = 3;
+			defencePow = 3;
 			attackCoef = 5;
 			healthCoef = 2;
 			maxHP = HP;
@@ -80,6 +83,7 @@ class Vampire :public Character
 		{
 			HP = obj.HP;
 			attackPow = obj.attackPow;
+			defencePow = obj.defencePow;
 			attackCoef = obj.attackCoef;
 			healthCoef = obj.healthCoef;
 			maxHP = HP;
@@ -108,6 +112,7 @@ class Cyclops :public Character
 		{
 			HP = 30;
 			attackPow = 5;
+			defencePow = 1;
 			attackCoef = 5;
 			healthCoef = 2;
 			maxHP = HP;
@@ -140,6 +145,7 @@ class Cyclops :public Character
 		{
 			HP = obj.HP;
 			attackPow = obj.attackPow;
+			defencePow = obj.defencePow;
 			attackCoef = obj.attackCoef;
 			healthCoef = obj.healthCoef;
 			maxHP = HP;
@@ -168,6 +174,7 @@ class Demon :public Character
 		{
 			HP = 50;
 			attackPow = 10;
+			defencePow = 1;
 			attackCoef = 5;
 			healthCoef = 2;
 			maxHP = HP;
@@ -195,6 +202,7 @@ class Demon :public Character
 		{
 			HP = obj.HP;
 			attackPow = obj.attackPow;
+			defencePow = obj.defencePow;
 			attackCoef = obj.attackCoef;
 			healthCoef = obj.healthCoef;
 			maxHP = HP;
