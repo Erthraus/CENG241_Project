@@ -1,16 +1,38 @@
-#pragma once
+﻿#pragma once
 #include "Character.h"
+#include <string>
 
 class Mushroom :public Character
 {
 	public:
-		char arrmushroom[5][5];
+		string arrmushroom[16] = 
+		{ 
+			"            ▓▓▓▓▓▓▓▓            ",
+			"          ▓▓▒▒▒▒▒▒▒▒▓▓          ",
+			"        ▓▓▒▒▒▒▒▒▒▒▒▒▒▒▒▒        ",
+			"      ▓▓▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▓▓      ",
+			"    ▓▓████▒▒▒▒▒▒▒▒▒▒▒▒████▓▓    ",
+			"  ░░▒▒▓▓░░██▒▒▒▒▒▒▒▒██░░▓▓▒▒░░  ",
+			"  ▓▓▒▒▓▓  ████████████  ▒▒▒▒▓▓  ",
+			"▓▓▒▒▒▒▓▓  ██  ▓▓▒▒  ██  ▒▒▒▒▒▒▒▒",
+			"▒▒▒▒▒▒▓▓      ▓▓▒▒      ▒▒▒▒▒▒▒▒",
+			"▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒",
+			"  ▓▓▒▒▒▒▓▓░░░░░░░░░░░░▒▒▒▒▒▒▓▓  ",
+			"        ░░░░░░░░░░░░░░░░        ",
+			"    ████░░░░░░░░░░░░░░░░████    ",
+			"  ██████████░░░░░░░░██████████  ",
+			"  ████████████░░░░████████████  ",
+			"  ░░██████████    ██████████░░  "
+		};
+
 		Mushroom()
 		{
 			HP = 10;
 			attackPow = 1;
 			attackCoef = 5;
 			healthCoef = 2;
+			maxHP = HP;
+			originalAttackCoef = attackCoef;
 		}
 	
 };	
@@ -25,6 +47,8 @@ class Goblin :public Character
 			attackPow = 3;
 			attackCoef = 5;
 			healthCoef = 2;
+			maxHP = HP;
+			originalAttackCoef = attackCoef;
 		}
 };
 
@@ -38,6 +62,8 @@ class Orc :public Character
 			attackPow = 5;
 			attackCoef = 5;
 			healthCoef = 2;
+			maxHP = HP;
+			originalAttackCoef = attackCoef;
 		}
 };
 
@@ -51,5 +77,7 @@ class Demon :public Character
 			attackPow = 10;
 			attackCoef = 5;
 			healthCoef = 2;
+			maxHP = HP;
+			originalAttackCoef = attackCoef;
 		}
 };
