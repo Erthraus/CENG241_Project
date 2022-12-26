@@ -13,20 +13,24 @@
 class Scene
 {
 	private:
-		int ch = 0;
+		int ch = 0, timer = 0;
 		void drawMap();
 		void drawArr(string arr[], int size, COORD pos);
 		void gotoxy(int x, int y);
 		void setColor(short color);
 		void drawUI();
-		void updateCursor();
+		void Controller();
 		void drawCursor();
 		void generateEnemies();
 		void drawEnemy(Character& currentEnemy);
+		void drawPlayer(Character& player);
 		void selectEnemy();
 		void drawHealthBar(int HP, int maxHP, int choice);
+		void enemyAttack();
 
 	public:
+		int turn = 1;
+		bool gameison = true;
 		void setup();
 		void update();
 		void draw();
@@ -36,6 +40,7 @@ class Scene
 		vector<Cyclops> cyclopses;
 		vector<Demon> demons;
 		Character currentEnemy;
+		string currentEnemyType;
 		Player player{ 1 };
 };
 

@@ -98,39 +98,44 @@ void Scene::drawHealthBar(int HP, int maxHP, int choice)	// 0 for enemies, 1 for
 {
 	if (choice)
 	{
-		COORD player;
-		player.X = WID * 2 / 3;
-		player.Y = LEN * 2 / 3;
+		COORD pos;
+		pos.X = WID / 6;
+		pos.Y = LEN / 6;
 		setColor();
 		
-		gotoxy(player.X, player.Y);
+		gotoxy(pos.X, pos.Y);
 		cout << HP;
-		gotoxy(player.X, player.Y + 1);
-		for (size_t i = 5; i >= maxHP / HP; i--)
+		gotoxy(pos.X, pos.Y + 1);
+		if (player.getHP())
 		{
-			cout << "[]";
+			for (size_t i = 6; i > maxHP / HP; i--)
+			{
+				cout << "[]";
+			}
 		}
-
 	}
 	
 	else
 	{
 		COORD enemy;
-		enemy.X = WID / 3;
-		enemy.Y = LEN / 5;
+		enemy.X = WID * 3 / 4;
+		enemy.Y = LEN * 3 / 4 - 3;
 		setColor(4);
 
 		gotoxy(enemy.X, enemy.Y);
 		cout << HP;
 		gotoxy(enemy.X, enemy.Y + 1);
-		for (size_t i = 5; i >= maxHP / HP; i--)
+		if (currentEnemy.getHP())
 		{
-			cout << "[]";
+			for (size_t i = 6; i > maxHP / HP; i--)
+			{
+				cout << "[]";
+			}
 		}
 	}
 }
 
-void Scene::updateCursor()
+void Scene::Controller()
 {
 	if (_kbhit())
 	{
@@ -142,6 +147,45 @@ void Scene::updateCursor()
 
 		case 'd':
 			ch++;
+			break;
+
+		case '\r':
+			if (turn % 2)
+			{
+				if (ch)
+				{
+					player.Defence();
+					turn++;
+				}
+
+				else
+				{
+					player.Attack(currentEnemy);
+					if (currentEnemy.getHP() == 0)
+					{
+						if (currentEnemyType == "imp")
+							impcount--;
+						else if (currentEnemyType == "vampire")
+							vampirecount--;
+						else if (currentEnemyType == "cyclops")
+							cyclopscount--;
+						else if (currentEnemyType == "demon")
+							demoncount--;
+
+						if (!(impcount || vampirecount || cyclopscount || demoncount))
+						{
+							gameison = false;
+							break;
+						}
+
+						selectEnemy();
+
+					}
+					turn++;
+				}
+
+				Sleep(100);
+			}
 			break;
 
 		default:
@@ -189,10 +233,10 @@ void Scene::drawCursor()
 
 void Scene::generateEnemies()
 {
-	impcount = rand() % 3;
-	vampirecount = rand() % 3;
-	cyclopscount = rand() % 3;
-	demoncount = rand() % 3;
+	impcount = rand() % 3 + 1;
+	vampirecount = rand() % 3 + 1;
+	cyclopscount = rand() % 3 + 1;
+	demoncount = rand() % 3 + 1;
 	totalEnemies = impcount + vampirecount + cyclopscount + demoncount;
 
 	if (totalEnemies == 0)
@@ -232,10 +276,22 @@ void Scene::generateEnemies()
 void Scene::drawEnemy(Character& currentEnemy)
 {
 	COORD pos;
-	pos.X = 4 * WID / 5;
-	pos.Y = 2;
+	if (currentEnemyType == "cyclops")
+		pos.Y = LEN / 10;
+	else
+		pos.Y = LEN / 4;
+	pos.X = 3 * WID / 4;
 	setColor(4);
 	drawArr(currentEnemy.art, currentEnemy.artsize, pos);
+}
+
+void Scene::drawPlayer(Character& player)
+{
+	COORD pos;
+	pos.X = WID / 4;
+	pos.Y = LEN / 4;
+	setColor(7);
+	drawArr(player.art, player.artsize, pos);
 }
 
 void Scene::selectEnemy()
@@ -252,6 +308,7 @@ void Scene::selectEnemy()
 				if (imps.at(i).getHP() > 0)
 				{
 					currentEnemy = imps.at(i);
+					currentEnemyType = "imp";
 					flag = 0;
 				}
 			}
@@ -264,6 +321,7 @@ void Scene::selectEnemy()
 				if (vampires.at(i).getHP() > 0)
 				{
 					currentEnemy = vampires.at(i);
+					currentEnemyType = "vampire";
 					flag = 0;
 				}
 			}
@@ -273,9 +331,10 @@ void Scene::selectEnemy()
 		{
 			for (size_t i = 0; i < cyclopscount; i++)
 			{
-				if (imps.at(i).getHP() > 0)
+				if (cyclopses.at(i).getHP() > 0)
 				{
 					currentEnemy = cyclopses.at(i);
+					currentEnemyType = "cyclops";
 					flag = 0;
 				}
 			}
@@ -285,9 +344,10 @@ void Scene::selectEnemy()
 		{
 			for (size_t i = 0; i < demoncount; i++)
 			{
-				if (imps.at(i).getHP() > 0)
+				if (demons.at(i).getHP() > 0)
 				{
 					currentEnemy = demons.at(i);
+					currentEnemyType = "demon";
 					flag = 0;
 				}
 			}
@@ -302,18 +362,52 @@ void Scene::selectEnemy()
 	}
 }
 
+void Scene::enemyAttack()
+{
+	if (turn % 2 == 0)
+	{
+		if (timer > 16)
+		{
+			timer = 0;
+
+			if (currentEnemy.getMaxHP() / currentEnemy.getHP() >= 2)
+			{
+				if (rand() % 2)
+					currentEnemy.Defence();
+				else
+					currentEnemy.Attack(player);
+
+				turn++;
+			}
+
+			else
+			{
+				currentEnemy.Attack(player);
+				turn++;
+			}
+
+			if (player.getHP() <= 0)
+				gameison = false;
+		}
+
+		timer++;
+	}
+}
+
+
 
 void Scene::setup()		//Sets up the game
 {	
 	setColor();
 	generateEnemies();
-	selectEnemy();
 	cout << "ERROR";
+	selectEnemy();
 }
 
 void Scene::update()	//For things which should be checked and updated constantly
 {
-	updateCursor();
+	Controller();
+	enemyAttack();
 }
 
 void Scene::draw()		//Draws frames
@@ -321,5 +415,6 @@ void Scene::draw()		//Draws frames
 	drawMap();
 	drawUI();
 	drawCursor();
+	//drawPlayer(player);
 	drawEnemy(currentEnemy);
 }
