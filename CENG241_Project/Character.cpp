@@ -5,6 +5,8 @@
 void Character::Attack(Character &target) {
 	int randomAttack = attackPow + rand() % (attackCoef + 1);
 	changeHP(-1 * randomAttack, target);
+	if (target.getHP() < 0)
+		target.setHP(0);
 }
 
 void Character::Defence() {
