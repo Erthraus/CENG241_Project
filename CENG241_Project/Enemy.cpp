@@ -1,5 +1,5 @@
 #include "Enemy.h"
-#include "Charachter.h"
+#include "Character.h"
 #include<iostream>
 #include<time.h>
 

@@ -1,15 +1,16 @@
 #pragma once
-#include "Charachter.h"
+#include "Character.h"
 
-class Enemy:public Charachter
+class Enemy : public Character
 {
 public:
 	string enemy[4];
-	char arr[][10];
-	virtual int Attack();
+	char arr[5][10];
+	//virtual int Attack();
 	Enemy(int attackCoef, int healthCoef);
 };
-class Bat:private Enemy
+
+class Bat: public Enemy
 {
 
 };

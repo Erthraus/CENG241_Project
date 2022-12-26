@@ -28,4 +28,4 @@ Player::Player(int chc) {
 	}
 }
 
-int Player::Buff(int )
+//int Player::Buff()

@@ -1,10 +1,10 @@
 #pragma once
 #include <iostream>
-#include "Charachter.h"
+#include "Character.h"
 #include <string>
 
 using namespace std;
-class Player: public Charachter
+class Player: public Character
 {
 public:
 	int Buff();

@@ -1,5 +1,6 @@
 #include "Engine.h"
 #include <windows.h>
+#include<time.h>
 
 void Engine::Run()
 {
