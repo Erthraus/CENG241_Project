@@ -6,7 +6,6 @@ using namespace std;
 class Character
 {
 protected:
-	friend class menu;
 	int HP;
 	int maxHP;
 	int attackPow;

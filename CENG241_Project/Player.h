@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 #include <iostream>
 #include "Character.h"
 #include <string>
@@ -26,23 +26,24 @@ class Player: public Character
 		Player(int chc) 
 		{
 			if (chc == 0) {
-				HP = 500;
-				attackPow = 30;
+				HP = 50;
+				attackPow = 10;
 				attackCoef = 1;
 				healthCoef = 1;
 				name = "DefenderPoky";
 				maxHP = HP;
 				originalAttackCoef = attackCoef;
 			}
-			else if (chc == 1) {
-				HP = 350;
-				attackPow = 45;
+			if (chc == 1) {
+				HP = 35;
+				attackPow = 15;
 				attackCoef = 1;
 				healthCoef = 15;
 				name = "FighterPoky";
 				maxHP = HP;
 				originalAttackCoef = attackCoef;
 			}
+
 			else if (chc == 2) {
 				HP = 200;
 				attackPow = 65;
@@ -108,6 +109,5 @@ class Player: public Character
 		~Player() {
 			delete[] art;
 		}
-
 };
 
