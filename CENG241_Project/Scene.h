@@ -5,6 +5,7 @@
 #include "Enemy.h"
 #include <vector>
 #include "Character.h"
+#include "Player.h"
 
 #define LEN 40
 #define WID 150
@@ -23,6 +24,7 @@ class Scene
 		void generateEnemies();
 		void drawEnemy(Character& currentEnemy);
 		void selectEnemy();
+		void drawHealthBar(int HP, int maxHP, int choice);
 
 	public:
 		void setup();
@@ -31,5 +33,6 @@ class Scene
 		int mushroomnum;
 		vector<Mushroom> mushrooms;
 		Character currentEnemy;
+		Player player{ 1 };
 };
 

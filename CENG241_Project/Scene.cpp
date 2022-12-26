@@ -89,6 +89,45 @@ void Scene::drawUI()
 	pos.X = WID * 5 / 6;
 	setColor(3);
 	drawArr(defence, size, pos);
+
+	drawHealthBar(currentEnemy.getHP(), currentEnemy.getMaxHP(), 0);
+	drawHealthBar(player.getHP(), player.getMaxHP(), 1);
+}
+
+void Scene::drawHealthBar(int HP, int maxHP, int choice)	// 0 for enemies, 1 for player
+{
+	if (choice)
+	{
+		COORD player;
+		player.X = WID * 2 / 3;
+		player.Y = LEN * 2 / 3;
+		setColor();
+		
+		gotoxy(player.X, player.Y);
+		cout << HP;
+		gotoxy(player.X, player.Y + 1);
+		for (size_t i = 5; i >= maxHP / HP; i--)
+		{
+			cout << "[]";
+		}
+
+	}
+	
+	else
+	{
+		COORD enemy;
+		enemy.X = WID / 3;
+		enemy.Y = LEN / 5;
+		setColor(4);
+
+		gotoxy(enemy.X, enemy.Y);
+		cout << HP;
+		gotoxy(enemy.X, enemy.Y + 1);
+		for (size_t i = 5; i >= maxHP / HP; i--)
+		{
+			cout << "[]";
+		}
+	}
 }
 
 void Scene::updateCursor()
@@ -150,7 +189,7 @@ void Scene::drawCursor()
 
 void Scene::generateEnemies()
 {
-	mushroomnum = rand() % 4;
+	mushroomnum = rand() % 4 + 1;
 	Mushroom* marr = new Mushroom[mushroomnum];
 
 	for (size_t i = 0; i < mushroomnum; i++)
@@ -166,6 +205,7 @@ void Scene::drawEnemy(Character& currentEnemy)
 	COORD pos;
 	pos.X = 4 * WID / 5;
 	pos.Y = 2;
+	setColor(4);
 	drawArr(currentEnemy.art, currentEnemy.artsize, pos);
 }
 

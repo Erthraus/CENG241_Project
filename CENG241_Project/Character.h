@@ -28,6 +28,7 @@ public:
 	int getHP() { return HP; }
 	int getattackCoef() { return attackCoef; }
 	int getOriginalAttackCoef() { return originalAttackCoef; }
+	int getMaxHP() { return maxHP; }
 	int gethealthCoef() { return healthCoef; }
 	int getattackPow() { return attackPow; }
 	int artsize;
