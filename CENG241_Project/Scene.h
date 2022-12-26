@@ -13,7 +13,7 @@
 class Scene
 {
 	private:
-		int ch = 0, timer = 0;
+		int ch = 0, timer = 0, choice;
 		void drawMap();
 		void drawArr(string arr[], int size, COORD pos);
 		void gotoxy(int x, int y);
@@ -29,8 +29,10 @@ class Scene
 		void enemyAttack();
 
 	public:
+		Scene() : choice{ 0 } {}
+		Scene(int x) : choice{x} {}
 		int turn = 1;
-		bool gameison = true;
+		bool gameison = true, win;
 		void setup();
 		void update();
 		void draw();
@@ -41,6 +43,6 @@ class Scene
 		vector<Demon> demons;
 		Character currentEnemy;
 		string currentEnemyType;
-		Player player{ 1 };
+		Player player{ choice };
 };
 
