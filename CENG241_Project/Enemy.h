@@ -9,4 +9,7 @@ public:
 	virtual int Attack();
 	Enemy(int attackCoef, int healthCoef);
 };
+class Bat:private Enemy
+{
 
+};
