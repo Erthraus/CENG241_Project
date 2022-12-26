@@ -38,7 +38,7 @@ class Player: public Character
 				HP = 35;
 				attackPow = 15;
 				attackCoef = 1;
-				healthCoef = 1;
+				healthCoef = 15;
 				name = "FighterPoky";
 				maxHP = HP;
 				originalAttackCoef = attackCoef;

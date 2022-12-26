@@ -13,7 +13,7 @@
 class Scene
 {
 	private:
-		int ch = 0;
+		int ch = 0, timer = 0;
 		void drawMap();
 		void drawArr(string arr[], int size, COORD pos);
 		void gotoxy(int x, int y);
@@ -26,6 +26,7 @@ class Scene
 		void drawPlayer(Character& player);
 		void selectEnemy();
 		void drawHealthBar(int HP, int maxHP, int choice);
+		void enemyAttack();
 
 	public:
 		int turn = 1;
