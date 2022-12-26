@@ -5,7 +5,7 @@
 class Mushroom :public Character
 {
 	public:
-		string arrmushroom[16] = 
+		string art[16] = 
 		{ 
 			"            ▓▓▓▓▓▓▓▓            ",
 			"          ▓▓▒▒▒▒▒▒▒▒▓▓          ",
@@ -33,6 +33,7 @@ class Mushroom :public Character
 			healthCoef = 2;
 			maxHP = HP;
 			originalAttackCoef = attackCoef;
+			artsize = 16;
 		}
 	
 };	

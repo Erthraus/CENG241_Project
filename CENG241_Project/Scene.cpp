@@ -1,9 +1,13 @@
-#include "Scene.h"
+﻿#include "Scene.h"
 #include <iostream>
 #include <windows.h>
 #include <conio.h>
 #include <stdlib.h>
+#include <cstdlib>
 #include <string>
+#include <vector>
+#include "Character.h"
+#include "Enemy.h"
 
 using namespace std;
 
@@ -26,6 +30,8 @@ void Scene::setColor(short color = 10)
 
 void Scene::drawMap()	//Function to draw Map
 {
+	setColor();
+
 	for (size_t i{1}; i < WID; i++)
 	{
 		gotoxy(i, 0);
@@ -45,7 +51,7 @@ void Scene::drawMap()	//Function to draw Map
 	}
 }
 
-void Scene::drawArr(string arr[5], int size, COORD pos)
+void Scene::drawArr(string arr[], int size, COORD pos)
 {
 	for (int i{ 0 }; i < size; i++)
 	{
@@ -142,9 +148,42 @@ void Scene::drawCursor()
 	}
 }
 
-void Scene::setup()		//Sets up the game
+void Scene::generateEnemies()
 {
+	mushroomnum = rand() % 4;
+	Mushroom* marr = new Mushroom[mushroomnum];
+
+	for (size_t i = 0; i < mushroomnum; i++)
+	{
+		mushrooms.push_back(marr[i]);
+	}
+}
+
+void Scene::drawEnemy(Character& currentEnemy)
+{
+	COORD pos;
+	pos.X = 4 * WID / 5;
+	pos.Y = 2;
+	drawArr(currentEnemy.art, currentEnemy.artsize, pos);
+}
+
+void Scene::selectEnemy()
+{
+	for (size_t i = 0; i < mushroomnum; i++)
+	{
+		if (mushrooms.at(i).getHP() < 0)
+			continue;
+
+		currentEnemy = mushrooms.at(i);
+	}
+}
+
+
+void Scene::setup()		//Sets up the game
+{	
 	setColor();
+	generateEnemies();
+	selectEnemy();
 }
 
 void Scene::update()	//For things which should be checked and updated constantly
@@ -154,8 +193,8 @@ void Scene::update()	//For things which should be checked and updated constantly
 
 void Scene::draw()		//Draws frames
 {
-	setColor();
 	drawMap();
 	drawUI();
 	drawCursor();
+	drawEnemy(currentEnemy);
 }

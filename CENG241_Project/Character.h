@@ -27,6 +27,8 @@ class Character
 		int getOriginalAttackCoef() { return originalAttackCoef; }
 		int gethealthCoef() { return healthCoef; }
 		int getattackPow() { return attackPow; }
+		string art[50];
+		int artsize;
 
 };
 
