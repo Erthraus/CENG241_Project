@@ -13,7 +13,10 @@
 class Scene
 {
 	private:
+
 		int ch = 0, timer = 0;
+
+	
 		void drawMap();
 		void drawArr(string arr[], int size, COORD pos);
 		void gotoxy(int x, int y);
