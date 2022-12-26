@@ -189,15 +189,44 @@ void Scene::drawCursor()
 
 void Scene::generateEnemies()
 {
-	impcount = rand() % 4 + 1;
+	impcount = rand() % 3;
+	vampirecount = rand() % 3;
+	cyclopscount = rand() % 3;
+	demoncount = rand() % 3;
+	totalEnemies = impcount + vampirecount + cyclopscount + demoncount;
+
+	if (totalEnemies == 0)
+		impcount = 1;
+
 	Imp* imparr = new Imp[impcount];
+	Vampire* vamparr = new Vampire[vampirecount];
+	Cyclops* cycarr = new Cyclops[cyclopscount];
+	Demon* demarr = new Demon[demoncount];
 
 	for (size_t i = 0; i < impcount; i++)
 	{
 		imps.push_back(imparr[i]);
 	}
 
+	for (size_t i = 0; i < vampirecount; i++)
+	{
+		vampires.push_back(vamparr[i]);
+	}
+
+	for (size_t i = 0; i < cyclopscount; i++)
+	{
+		cyclopses.push_back(cycarr[i]);
+	}
+
+	for (size_t i = 0; i < demoncount; i++)
+	{
+		demons.push_back(demarr[i]);
+	}
+
 	delete[] imparr;
+	delete[] vamparr;
+	delete[] cycarr;
+	delete[] demarr;
 }
 
 void Scene::drawEnemy(Character& currentEnemy)
@@ -211,12 +240,65 @@ void Scene::drawEnemy(Character& currentEnemy)
 
 void Scene::selectEnemy()
 {
-	for (size_t i = 0; i < impcount; i++)
-	{
-		if (imps.at(i).getHP() < 0)
-			continue;
+	int selector = rand() % 4;
+	int flag = 1;
 
-		currentEnemy = imps.at(i);
+	while (flag)
+	{
+		if (selector == 0)
+		{
+			for (size_t i = 0; i < impcount; i++)
+			{
+				if (imps.at(i).getHP() > 0)
+				{
+					currentEnemy = imps.at(i);
+					flag = 0;
+				}
+			}
+		}
+		
+		else if (selector == 1)
+		{
+			for (size_t i = 0; i < vampirecount; i++)
+			{
+				if (vampires.at(i).getHP() > 0)
+				{
+					currentEnemy = vampires.at(i);
+					flag = 0;
+				}
+			}
+		}
+
+		else if (selector == 2)
+		{
+			for (size_t i = 0; i < cyclopscount; i++)
+			{
+				if (imps.at(i).getHP() > 0)
+				{
+					currentEnemy = cyclopses.at(i);
+					flag = 0;
+				}
+			}
+		}
+
+		else if (selector == 3)
+		{
+			for (size_t i = 0; i < demoncount; i++)
+			{
+				if (imps.at(i).getHP() > 0)
+				{
+					currentEnemy = demons.at(i);
+					flag = 0;
+				}
+			}
+		}
+
+		else
+		{
+				selector++;
+				if (selector > 3)	
+					selector = 0;
+		}
 	}
 }
 
@@ -226,6 +308,7 @@ void Scene::setup()		//Sets up the game
 	setColor();
 	generateEnemies();
 	selectEnemy();
+	cout << "ERROR";
 }
 
 void Scene::update()	//For things which should be checked and updated constantly

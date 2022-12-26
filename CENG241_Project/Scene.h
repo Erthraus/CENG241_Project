@@ -30,9 +30,9 @@ class Scene
 		void setup();
 		void update();
 		void draw();
-		int impcount, vampirecount, cyclopscount, demoncount;
+		int impcount, vampirecount, cyclopscount, demoncount, totalEnemies;
 		vector<Imp> imps;
-		vector<Vampire> vampire;
+		vector<Vampire> vampires;
 		vector<Cyclops> cyclopses;
 		vector<Demon> demons;
 		Character currentEnemy;
