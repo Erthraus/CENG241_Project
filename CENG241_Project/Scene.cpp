@@ -298,7 +298,7 @@ void Scene::selectEnemy()
 {
 	int selector = rand() % 4;
 	int flag = 1;
-
+	cout << "za";
 	while (flag)
 	{
 		if (selector == 0)
@@ -399,8 +399,9 @@ void Scene::enemyAttack()
 void Scene::setup()		//Sets up the game
 {	
 	setColor();
+	cout << "1";
 	generateEnemies();
-	cout << "ERROR";
+	cout << "2";
 	selectEnemy();
 }
 
