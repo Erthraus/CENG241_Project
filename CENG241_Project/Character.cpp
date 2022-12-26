@@ -1,29 +1,22 @@
 #include "Character.h"
 #include<iostream>
-#include<time.h>
+#include <cstdlib>
 
-int Character::Attack(Character &target) {
+void Character::Attack(Character &target) {
 	int randomAttack = attackPow + rand() % (attackCoef + 1);
-	return randomAttack;
+	changeHP(-1 * randomAttack, target);
 }
 
-int Character::decDMG() {
-	int randomDec = rand() % (attackPow * 30 / 100) + 1;
-	for (int i = 0; i < 2; i++) {
-		attackPow -= randomDec;
-	}
-	return randomDec;
+void Character::Defence() {
+	int randomHeal =  defencePow + rand() % (healthCoef + 1);
+	HP += randomHeal;
+	if (HP > maxHP)
+		HP = maxHP;
 }
 
-int Character::incHP() {
-	int randomInc = rand() % (HP * 10 / 100) + 1;
-	HP += randomInc;
-	return randomInc;
-}
-
-int Character::takenDMG() {
-	HP -= attackPow;
-	return HP;
+void Character::changeHP(int val, Character &target) {
+	
+	target.setHP(target.getHP() - val);
 }
 
 

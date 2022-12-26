@@ -62,6 +62,8 @@ void Scene::drawUI()
 	pos.Y = 3 * LEN / 4 + 4;
 	string* attack = new string[size];
 	string* defence = new string[size];
+	//string* buff = new string[size];
+	//string* debuff = new string[size];
 
 	attack[0] = "    ^   -------  |   /  ";
 	attack[1] = "   / \\     |     |  /  ";

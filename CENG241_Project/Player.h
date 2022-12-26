@@ -4,14 +4,15 @@
 #include <string>
 
 using namespace std;
+
 class Player: public Character
 {
-public:
-	int Buff();
-	int Debuff();
-	string name;
+	public:
+		void Buff();
+		void Debuff(Character& target);
+		string name;
 
-	Player();
-	Player(int chc);
+		Player();
+		Player(int chc);
 };
 
