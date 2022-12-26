@@ -15,6 +15,9 @@ protected:
 	int healthCoef;
 
 public:
+	Character() {}
+	Character(const Character& obj) {}
+
 	void changeHP(int val, Character& target);
 	void Attack(Character& target);
 	void Defence();
@@ -28,7 +31,7 @@ public:
 	int gethealthCoef() { return healthCoef; }
 	int getattackPow() { return attackPow; }
 	int artsize;
-	string art[50];
+	string* art;
 
 };
 

@@ -195,12 +195,8 @@ void Scene::update()	//For things which should be checked and updated constantly
 
 void Scene::draw()		//Draws frames
 {
-	COORD pos;
-	pos.X = 4 * WID / 5;
-	pos.Y = 2;
 	drawMap();
 	drawUI();
 	drawCursor();
 	drawEnemy(currentEnemy);
-	drawArr(deneme.art, 16, pos);
 }

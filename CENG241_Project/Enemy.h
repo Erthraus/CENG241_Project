@@ -7,6 +7,16 @@ class Mushroom :public Character
 	public:
 		Mushroom()
 		{
+			HP = 10;
+			attackPow = 1;
+			attackCoef = 5;
+			healthCoef = 2;
+			maxHP = HP;
+			originalAttackCoef = attackCoef;
+			artsize = 16;
+			
+			art = new string[artsize];
+
 			art[0] =	"            ▓▓▓▓▓▓▓▓            ";
 			art[1] =	"          ▓▓▒▒▒▒▒▒▒▒▓▓          ";
 			art[2] =	"        ▓▓▒▒▒▒▒▒▒▒▒▒▒▒▒▒        ";
@@ -23,16 +33,30 @@ class Mushroom :public Character
 			art[13] =	"  ██████████░░░░░░░░██████████  ";
 			art[14] =	"  ████████████░░░░████████████  ";
 			art[15] =	"  ░░██████████    ██████████░░  ";
-			
-			HP = 10;
-			attackPow = 1;
-			attackCoef = 5;
-			healthCoef = 2;
+		}
+		
+		Mushroom(const Mushroom& obj)
+		{
+			HP = obj.HP;
+			attackPow = obj.attackPow;
+			attackCoef = obj.attackCoef;
+			healthCoef = obj.healthCoef;
 			maxHP = HP;
 			originalAttackCoef = attackCoef;
-			artsize = 16;
+			artsize = obj.artsize;
+
+			art = new string[artsize];
+
+			for (size_t i = 0; i < artsize; i++)
+			{
+				art[i] = obj.art[i];
+			}
 		}
-	
+
+		~Mushroom()
+		{
+			delete[] art;
+		}
 };	
 
 class Goblin :public Character

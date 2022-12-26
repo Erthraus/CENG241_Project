@@ -31,6 +31,5 @@ class Scene
 		int mushroomnum;
 		vector<Mushroom> mushrooms;
 		Character currentEnemy;
-		Mushroom deneme;
 };
 
