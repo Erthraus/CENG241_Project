@@ -4,7 +4,7 @@
 class Engine
 {
 	private:
-		Scene scene;
+		//Scene scene;
 
 	public:
 		void Run();
