@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include <iostream>
 #include "Character.h"
 #include <string>
@@ -26,23 +26,88 @@ class Player: public Character
 		Player(int chc) 
 		{
 			if (chc == 0) {
-				HP = 50;
-				attackPow = 10;
+				HP = 500;
+				attackPow = 30;
 				attackCoef = 1;
 				healthCoef = 1;
 				name = "DefenderPoky";
 				maxHP = HP;
 				originalAttackCoef = attackCoef;
 			}
-			if (chc == 1) {
-				HP = 35;
-				attackPow = 15;
+			else if (chc == 1) {
+				HP = 350;
+				attackPow = 45;
 				attackCoef = 1;
 				healthCoef = 1;
 				name = "FighterPoky";
 				maxHP = HP;
 				originalAttackCoef = attackCoef;
 			}
+			else if (chc == 2) {
+				HP = 200;
+				attackPow = 65;
+				attackCoef = 1;
+				healthCoef = 1;
+				name = "AssasinPoky";
+				maxHP = HP;
+				originalAttackCoef = attackCoef;
+			}
+			else if (chc == 3) {
+				HP = 350;
+				attackPow = 45;
+				attackCoef = 2;
+				healthCoef = 2;
+				name = "WizardPoky";
+				maxHP = HP;
+				originalAttackCoef = attackCoef;
+				art = new string[artsize];
+				art[0] =  "            _, ._      ";
+				art[1] =  " .||,       /_ _\\     ";
+				art[2] =  "\.`',/      |'L'| |    ";
+				art[3] =  "= ,. =      | -,| L    ";
+				art[4] =  "/ || \    ,-'\"/,'`.   ";
+				art[5] =  "  ||     ,'   `,,. `.  ";
+				art[6] =  "	,|____,' , ,;' \| |   ";
+				art[7] =  "(3|\    _/|/'   _| |   ";
+				art[8] =  "	||/,-''  | >-'' _,\\  ";
+				art[9] =  " ||'      ==\ ,-'  ,'  ";
+				art[10] = " ||       |  V \ ,|    ";
+				art[11] = " ||       |    |` |    ";
+				art[12] = " ||       |    |   \   ";
+				art[13] = "	||       |    \    \  ";
+				art[14] = "	||       |     |    \ ";
+				art[15] = "	||       |      \_,-' ";
+				art[16] = "	||       |___,,--)_\  ";
+				art[17] = "	||         |_|   ccc/ ";
+				art[18] = "	||        ccc/        ";
+				art[19] = "=======================";
+			}
+			else if (chc == 4) {
+				HP = 800;
+				attackPow = 20;
+				attackCoef = 1;
+				healthCoef = 1;
+				name = "TankPoky";
+				maxHP = HP;
+				originalAttackCoef = attackCoef;
+				art = new string[artsize];
+				art[0] = "                                                               ";
+				art[1] = "                                                               ";
+				art[2] = "             ▄▄▄▄╩╩╩╩╩╩╩╩╩╩╩╩┐┐┐┐                              ";
+				art[3] = "           ▄▄▄▄▄■■■■■■■■■■■■┐┐┐═════════════════════════██     ";
+				art[4] = "          ╔■■■■■■■■■■■■■■■■■┐┐┐═════════════════════════██     ";
+				art[5] = "        ╔╔╔■■■■■■■┼┼┼┼■■■■■■┐┐┐═════════════════════════██     ";
+				art[6] = "        ╔╔╔╔■■■■■■■┼┼┼┼■■■■■■┐┐┐┐┐                             ";
+				art[7] = "     ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄                          ";
+				art[8] = "       |----------------------|                                ";
+				art[9] = "   //// ◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙ \\\\                            ";
+				art[10] = "   \\\\ ◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙ ////                           ";
+				art[11] = "    ||__________________________||		                     ";
+			}
 		}
+		~Player() {
+			delete[] art;
+		}
+
 };
 
