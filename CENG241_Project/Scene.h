@@ -13,6 +13,7 @@
 class Scene
 {
 	private:
+		friend class menu;
 		int ch = 0;
 		void drawMap();
 		void drawArr(string arr[], int size, COORD pos);
