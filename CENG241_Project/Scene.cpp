@@ -189,15 +189,15 @@ void Scene::drawCursor()
 
 void Scene::generateEnemies()
 {
-	mushroomnum = rand() % 4 + 1;
-	Mushroom* marr = new Mushroom[mushroomnum];
+	impcount = rand() % 4 + 1;
+	Imp* imparr = new Imp[impcount];
 
-	for (size_t i = 0; i < mushroomnum; i++)
+	for (size_t i = 0; i < impcount; i++)
 	{
-		mushrooms.push_back(marr[i]);
+		imps.push_back(imparr[i]);
 	}
 
-	delete[] marr;
+	delete[] imparr;
 }
 
 void Scene::drawEnemy(Character& currentEnemy)
@@ -211,12 +211,12 @@ void Scene::drawEnemy(Character& currentEnemy)
 
 void Scene::selectEnemy()
 {
-	for (size_t i = 0; i < mushroomnum; i++)
+	for (size_t i = 0; i < impcount; i++)
 	{
-		if (mushrooms.at(i).getHP() < 0)
+		if (imps.at(i).getHP() < 0)
 			continue;
 
-		currentEnemy = mushrooms.at(i);
+		currentEnemy = imps.at(i);
 	}
 }
 

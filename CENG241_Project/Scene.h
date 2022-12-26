@@ -30,8 +30,11 @@ class Scene
 		void setup();
 		void update();
 		void draw();
-		int mushroomnum;
-		vector<Mushroom> mushrooms;
+		int impcount, vampirecount, cyclopscount, demoncount;
+		vector<Imp> imps;
+		vector<Vampire> vampire;
+		vector<Cyclops> cyclopses;
+		vector<Demon> demons;
 		Character currentEnemy;
 		Player player{ 1 };
 };
