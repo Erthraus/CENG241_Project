@@ -7,7 +7,7 @@ void Engine::Run()
 	srand(time(0));
 	scene.setup();
 
-	while (1)
+	while (scene.gameison)
 	{
 		scene.update();
 		scene.draw();
