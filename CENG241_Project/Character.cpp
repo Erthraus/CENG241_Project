@@ -19,5 +19,3 @@ void Character::Defence() {
 void Character::changeHP(int val, Character &target) {
 	target.setHP(target.getHP() - val);
 }
-
-
