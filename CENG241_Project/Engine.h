@@ -1,12 +1,12 @@
 #pragma once
-#include "Scene.h"
+
+#include "Menu.h"
 
 class Engine
 {
-	private:
-		//Scene scene;
+	private: 
+		Menu menu;
 
 	public:
 		void Run();
 };
-

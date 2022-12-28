@@ -15,11 +15,12 @@ protected:
 	int healthCoef;
 
 public:
-	Character() {}
-	Character(const Character& obj) {}
+	Character() = default;
+	Character(const Character& obj) = default;
 
-	void changeHP(int val, Character& target);
+	//virtual void specialAbility();
 	void Attack(Character& target);
+	void changeHP(int val, Character& target);
 	void Defence();
 	void setHP(int HP) { this->HP = HP; }
 	void setattackCoef(int attackCoef) { this->attackCoef = attackCoef; }
@@ -33,6 +34,7 @@ public:
 	int getattackPow() { return attackPow; }
 	int artsize;
 	string* art;
-
+	string* attackQuote;
+	string* defenceQuote;
 };
 
