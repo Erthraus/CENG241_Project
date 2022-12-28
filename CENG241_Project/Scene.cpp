@@ -30,7 +30,10 @@ void Scene::setColor(short color = 10)
 
 void Scene::drawMap()	//Function to draw Map
 {
-	setColor();
+	if (turn % 2)
+		setColor();
+	else
+		setColor(4);
 
 	for (size_t i{1}; i < WID; i++)
 	{
@@ -62,6 +65,12 @@ void Scene::drawArr(string arr[], int size, COORD pos)
 
 void Scene::drawUI()
 {
+	gotoxy(1, 1);
+	setColor(7);
+	cout << "TURN: " << turn;
+	gotoxy(1, 2);
+	cout << "Remaining Enemies: " << totalEnemies;
+
 	COORD pos;
 	int size{ 5 };
 	pos.X = WID * 3 / 5;
@@ -164,16 +173,29 @@ void Scene::Controller()
 					if (currentEnemy.getHP() == 0)
 					{
 						if (currentEnemyType == "imp")
-							impcount--;
-						else if (currentEnemyType == "vampire")
-							vampirecount--;
-						else if (currentEnemyType == "cyclops")
-							cyclopscount--;
-						else if (currentEnemyType == "demon")
-							demoncount--;
-
-						if (!(impcount || vampirecount || cyclopscount || demoncount))
 						{
+							totalEnemies--;
+							impcount--;
+
+						}
+						else if (currentEnemyType == "vampire")
+						{
+							totalEnemies--;
+							vampirecount--;
+						}
+						else if (currentEnemyType == "cyclops")
+						{
+							totalEnemies--;
+							cyclopscount--;
+						}				
+						else if (currentEnemyType == "demon")
+						{
+							totalEnemies--;
+							demoncount--;
+						}
+						if (totalEnemies == 0)
+						{
+							win = true;
 							gameison = false;
 							break;
 						}
@@ -288,9 +310,9 @@ void Scene::drawEnemy(Character& currentEnemy)
 void Scene::drawPlayer(Character& player)
 {
 	COORD pos;
-	pos.X = WID / 4;
-	pos.Y = LEN / 4;
-	setColor(7);
+	pos.X = WID / 10;
+	pos.Y = 10;
+	setColor(3);
 	drawArr(player.art, player.artsize, pos);
 }
 
@@ -387,8 +409,11 @@ void Scene::enemyAttack()
 			}
 
 			if (player.getHP() <= 0)
+			{
 				gameison = false;
-		}
+				win = false;
+			}
+		}	
 
 		timer++;
 	}
@@ -415,6 +440,6 @@ void Scene::draw()		//Draws frames
 	drawMap();
 	drawUI();
 	drawCursor();
-	//drawPlayer(player);
+	drawPlayer(player);
 	drawEnemy(currentEnemy);
 }
