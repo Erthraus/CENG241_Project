@@ -1,31 +1,30 @@
 #include "Engine.h"
 #include <windows.h>
 #include <time.h>
-#include <iostream>
+#include "Battle.h"
 
 void Engine::Run()
 {
 	srand(time(0));
-	int choice;
-	std::cout << "Choose your Character (0 - 4): ";
-	std::cin >> choice;
 	
-	Scene scene{ choice };
-	scene.setup();
+	do {
+		menu.Start();
 
-	while (scene.gameison)
-	{
-		scene.update();
-		scene.draw();
-		Sleep(100);
-		system("cls");
-	}
+		Battle* battle = new Battle;
 
-	if (scene.win)
-		std::cout << "VICTORY" << std::endl;
+		battle->setup();
 
-	else
-		std::cout << "DEFEAT" << std::endl;
+		while (battle->gameison)
+		{
+			battle->update();
+			battle->draw();
+			Sleep(75);
+			system("cls");
+		}
+
+		delete battle;
+		menu.End();
+	} while (menu.replay);
 
 	system("pause");
 }
