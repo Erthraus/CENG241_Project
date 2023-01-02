@@ -32,6 +32,7 @@ class Battle : public Scene
 		void update();
 		void draw();
 		int impcount, vampirecount, cyclopscount, demoncount, totalEnemies;
+		int currentEnemyLoc;
 		vector<Imp> imps;
 		vector<Vampire> vampires;
 		vector<Cyclops> cyclopses;
