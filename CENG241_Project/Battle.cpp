@@ -76,6 +76,9 @@ void Battle::drawUI()	//Function to draw User Interface
 
 	drawHealthBar(currentEnemy.getHP(), currentEnemy.getMaxHP(), 0);
 	drawHealthBar(player.getHP(), player.getMaxHP(), 1);
+
+	delete[] attack;
+	delete[] defence;
 }
 
 void Battle::drawHealthBar(int HP, int maxHP, int choice)	// 0 for enemies, 1 for player
@@ -133,10 +136,12 @@ void Battle::Controller()		//Function to get user inputs
 		{
 		case 'a':
 			ch--;
+			system("cls");
 			break;
 
 		case 'd':
 			ch++;
+			system("cls");
 			break;
 
 		case '\r':				// \r means enter
@@ -151,28 +156,31 @@ void Battle::Controller()		//Function to get user inputs
 				else
 				{
 					player.Attack(currentEnemy);
-					if (currentEnemy.getHP() == 0)
+					if (currentEnemy.getHP() <= 0)
 					{
 						if (currentEnemyType == "imp")
 						{
 							totalEnemies--;
 							impcount--;
-
+							//imps.erase(imps.begin() + currentEnemyLoc);
 						}
 						else if (currentEnemyType == "vampire")
 						{
 							totalEnemies--;
 							vampirecount--;
+							//vampires.erase(vampires.begin() + currentEnemyLoc);
 						}
 						else if (currentEnemyType == "cyclops")
 						{
 							totalEnemies--;
 							cyclopscount--;
+							//cyclopses.erase(cyclopses.begin() + currentEnemyLoc);
 						}
 						else if (currentEnemyType == "demon")
 						{
 							totalEnemies--;
 							demoncount--;
+							//demons.erase(demons.begin() + currentEnemyLoc);
 						}
 						if (totalEnemies == 0)
 						{
@@ -186,7 +194,7 @@ void Battle::Controller()		//Function to get user inputs
 					}
 					turn++;
 				}
-
+				system("cls");
 				Sleep(100);
 			}
 			break;
@@ -219,19 +227,8 @@ void Battle::drawCursor()		//Function to draw Player cursor
 
 	pos.Y = 3 * LEN / 4 + 5;
 
-	switch (ch)
-	{
-	case 0:
-		drawArr(arrow, size, pos);
-		break;
-
-	case 1:
-		drawArr(arrow, size, pos);
-		break;
-
-	default:
-		break;
-	}
+	drawArr(arrow, size, pos);
+	delete[] arrow;
 }
 
 void Battle::generateEnemies()		//Function to generate a horde of enemies
@@ -310,6 +307,7 @@ void Battle::selectEnemy()		//Function to select the Current enemy
 				{
 					currentEnemy = imps.at(i);
 					currentEnemyType = "imp";
+					currentEnemyLoc = i;
 					flag = 0;
 				}
 			}
@@ -323,6 +321,7 @@ void Battle::selectEnemy()		//Function to select the Current enemy
 				{
 					currentEnemy = vampires.at(i);
 					currentEnemyType = "vampire";
+					currentEnemyLoc = i;
 					flag = 0;
 				}
 			}
@@ -336,6 +335,7 @@ void Battle::selectEnemy()		//Function to select the Current enemy
 				{
 					currentEnemy = cyclopses.at(i);
 					currentEnemyType = "cyclops";
+					currentEnemyLoc = i;
 					flag = 0;
 				}
 			}
@@ -349,6 +349,7 @@ void Battle::selectEnemy()		//Function to select the Current enemy
 				{
 					currentEnemy = demons.at(i);
 					currentEnemyType = "demon";
+					currentEnemyLoc = i;
 					flag = 0;
 				}
 			}
@@ -360,11 +361,11 @@ void Battle::enemyAttack()		//Algorithm for enemy behavior
 {
 	if (turn % 2 == 0)
 	{
-		if (timer > 16)
+		if (timer > 30)
 		{
 			timer = 0;
 
-			if (currentEnemy.getMaxHP() / currentEnemy.getHP() >= 2)
+			if (currentEnemy.getMaxHP() * 6 / 10 >= currentEnemy.getHP())
 			{
 				if (rand() % 2)
 					currentEnemy.Defence();
@@ -385,6 +386,8 @@ void Battle::enemyAttack()		//Algorithm for enemy behavior
 				gameison = false;
 				winStatus = false;
 			}
+
+			system("cls");
 		}
 
 		timer++;

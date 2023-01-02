@@ -1,10 +1,12 @@
 #include "Menu.h"
 #include <iostream>
+#include <windows.h>
 
 using namespace std;
 
 void Menu::Start()		//Function output character selection menu
 {
+	system("cls");
 	setColor();
 	cout << "Choose your Character (0 - 4): ";
 	cin >> characterChoice;
@@ -12,6 +14,8 @@ void Menu::Start()		//Function output character selection menu
 
 void Menu::End()		//Function to output game status and input user choice to play again 
 {
+	system("cls");
+
 	if (Battle::winStatus)
 	{
 		setColor();
