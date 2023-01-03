@@ -25,13 +25,33 @@ class Battle : public Scene
 		void selectEnemy();
 		void drawHealthBar(int HP, int maxHP, int choice);
 		void enemyAttack();
+		void pauseMenu();
+		void updateCtr();
+
+		string* attack{ nullptr };
+		string* defence{ nullptr };
+		string* buff{ nullptr };
+		string* debuff{ nullptr };
+		string* arrow{ nullptr };
 
 	public:
-		int turn = 1;
+		Battle() = default;
+		
+		~Battle()
+		{
+			delete[] attack;
+			delete[] defence;
+			delete[] buff;
+			delete[] debuff;
+			delete[] arrow;
+		}
+		
+		int turn = 1, previousturn = 0;
 		void setup();
 		void update();
 		void draw();
-		int impcount, vampirecount, cyclopscount, demoncount, totalEnemies;
+		int totalEnemies;
+		int currentEnemyLoc;
 		vector<Imp> imps;
 		vector<Vampire> vampires;
 		vector<Cyclops> cyclopses;

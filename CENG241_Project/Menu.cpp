@@ -1,12 +1,11 @@
 #include "Menu.h"
 #include <iostream>
-#include <windows.h>
-
 
 using namespace std;
 
 void Menu::Start()		//Function output character selection menu
 {
+	system("cls");
 	setColor();
 	COORD pos;
 	string characterConfirm;
@@ -124,6 +123,8 @@ void Menu::Start()		//Function output character selection menu
 
 void Menu::End()		//Function to output game status and input user choice to play again 
 {
+	system("cls");
+
 	if (Battle::winStatus)
 	{
 		setColor();

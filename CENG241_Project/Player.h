@@ -8,6 +8,11 @@ using namespace std;
 class Player: public Character
 {
 	public:
+		bool isBuffed = false;
+		int buffCtr = 0;
+		int buffCoef = 10;
+		int debuffCoef = 10;
+
 		void Buff();
 		void Debuff(Character& target);
 		string name;
