@@ -10,8 +10,8 @@ class Player: public Character
 	public:
 		bool isBuffed = false;
 		int buffCtr = 0;
-		int buffCoef = 10;
-		int debuffCoef = 10;
+		int buffCoef = 50;
+		int debuffCoef = 30;
 
 		void Buff();
 		void Debuff(Character& target);
@@ -64,8 +64,8 @@ class Player: public Character
 			}
 			else if (chc == 1) {				
 				HP = 50;
-				attackPow = 25;
-				defencePow = 15;
+				attackPow = 20;
+				defencePow = 20;
 				attackCoef = 1;
 				healthCoef = 3;
 				name = "FighterPoky";
@@ -96,10 +96,10 @@ class Player: public Character
 
 			}
 			else if (chc == 2) {
-				HP = 50;
-				attackPow = 30;
-				defencePow = 5;
-				attackCoef = 3;
+				HP = 55;
+				attackPow = 15;
+				defencePow = 10;
+				attackCoef = 2;
 				healthCoef = 2;
 				name = "ArcherPoky";
 				maxHP = HP;
@@ -129,11 +129,11 @@ class Player: public Character
 
 			}
 			else if (chc == 3) {
-				HP = 40;
-				attackPow = 35;
-				defencePow = 10;
+				HP = 50;
+				attackPow = 10;
+				defencePow = 20;
 				attackCoef = 2;
-				healthCoef = 3;
+				healthCoef = 2;
 				name = "WizardPoky";
 				maxHP = HP;
 				originalAttackCoef = attackCoef;
@@ -162,8 +162,8 @@ class Player: public Character
 			}
 			else if (chc == 4) {
 				HP = 800;
-				attackPow = 20;
-				defencePow = 20;
+				attackPow = 60;
+				defencePow = 40;
 				attackCoef = 1;
 				healthCoef = 1;
 				name = "TankPoky";
