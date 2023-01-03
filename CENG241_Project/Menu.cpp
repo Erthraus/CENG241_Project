@@ -1,10 +1,12 @@
 #include "Menu.h"
 #include <iostream>
+#include <windows.h>
 
 using namespace std;
 
 void Menu::Start()		//Function output character selection menu
 {
+	system("cls");
 	setColor();
 	COORD pos;
 	string characterConfirm;
