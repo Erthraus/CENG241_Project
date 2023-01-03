@@ -9,20 +9,21 @@ void Menu::Start()		//Function output character selection menu
 	COORD pos;
 	string characterConfirm;
 	int tempChoice;
-	point:
+
+point:
 	system("cls");
-	cout << "Choose your Character (0 - 3): ";
+	cout << "Choose your Character (0 - 4): ";
 	cin >> tempChoice;
 	Player* character = new Player(tempChoice);
-	if (tempChoice < 4) {
+	if (tempChoice <= 4 && 0 <= tempChoice) {
 		pos.X = 5;
 		pos.Y = 4;
 		drawArr(character->art, character->artsize, pos);
-		cout << endl;
-		cout << "Character name:" << character->name << endl;
-		cout << "Character HP:" << character->getMaxHP() << endl;
-		cout << "Character AP:" << character->getattackPow() << endl;
-		point2:
+		cout << endl << endl << "Character name:" << character->name;
+		cout << endl <<"Character HP:" << character->getMaxHP();
+		cout << endl <<"Character AP:" << character->getattackPow();
+	
+	point2:
 		cout << "Do you confirm character?(y/n)";
 		cin >> characterConfirm;
 		if (characterConfirm == "y") {
