@@ -25,6 +25,7 @@ class Battle : public Scene
 		void selectEnemy();
 		void drawHealthBar(int HP, int maxHP, int choice);
 		void enemyAttack();
+		void pauseMenu();
 
 		string* attack{ nullptr };
 		string* defence{ nullptr };
