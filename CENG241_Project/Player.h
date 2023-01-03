@@ -31,11 +31,11 @@ class Player: public Character
 		Player(int chc) 
 		{
 			if (chc == 0) {
-				HP = 50;
-				attackPow = 10;
-				defencePow = 10;
+				HP = 100;
+				attackPow = 15;
+				defencePow = 30;
 				attackCoef = 1;
-				healthCoef = 1;
+				healthCoef = 2;
 				name = "DefenderPoky";
 				maxHP = HP;
 				originalAttackCoef = attackCoef;
@@ -63,11 +63,11 @@ class Player: public Character
 				art[19] = "	   |       /____/\\____\\           ";
 			}
 			else if (chc == 1) {				
-				HP = 350;
-				attackPow = 10;
-				defencePow = 10;
+				HP = 50;
+				attackPow = 25;
+				defencePow = 15;
 				attackCoef = 1;
-				healthCoef = 1;
+				healthCoef = 3;
 				name = "FighterPoky";
 				maxHP = HP;
 				originalAttackCoef = attackCoef;
@@ -96,11 +96,11 @@ class Player: public Character
 
 			}
 			else if (chc == 2) {
-				HP = 200;
-				attackPow = 65;
-				defencePow = 10;
-				attackCoef = 1;
-				healthCoef = 1;
+				HP = 50;
+				attackPow = 30;
+				defencePow = 5;
+				attackCoef = 3;
+				healthCoef = 2;
 				name = "ArcherPoky";
 				maxHP = HP;
 				originalAttackCoef = attackCoef;
@@ -129,11 +129,11 @@ class Player: public Character
 
 			}
 			else if (chc == 3) {
-				HP = 350;
-				attackPow = 45;
+				HP = 40;
+				attackPow = 35;
 				defencePow = 10;
 				attackCoef = 2;
-				healthCoef = 2;
+				healthCoef = 3;
 				name = "WizardPoky";
 				maxHP = HP;
 				originalAttackCoef = attackCoef;
