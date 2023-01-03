@@ -16,10 +16,9 @@ void Engine::Run()
 
 		while (battle->gameison)
 		{
+			battle->gotoxy(0, 0);
 			battle->update();
 			battle->draw();
-			Sleep(75);
-			system("cls");
 		}
 
 		delete battle;
