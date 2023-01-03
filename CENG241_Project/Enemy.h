@@ -7,11 +7,11 @@ class Imp :public Character
 public:
 		Imp()
 		{
-			HP = 10;
-			attackPow = 1;
-			defencePow = 1;
-			attackCoef = 5;
-			healthCoef = 2;
+			HP = 40;
+			attackPow = 11;
+			defencePow = 5;
+			attackCoef = 3;
+			healthCoef = 1;
 			maxHP = HP;
 			originalAttackCoef = attackCoef;
 			artsize = 9;
