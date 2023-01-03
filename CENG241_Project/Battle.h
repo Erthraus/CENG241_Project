@@ -25,11 +25,13 @@ class Battle : public Scene
 		void selectEnemy();
 		void drawHealthBar(int HP, int maxHP, int choice);
 		void enemyAttack();
+		void pauseMenu();
+		void updateCtr();
 
 		string* attack{ nullptr };
 		string* defence{ nullptr };
-		//string* buff = new string[size];
-		//string* debuff = new string[size];
+		string* buff{ nullptr };
+		string* debuff{ nullptr };
 		string* arrow{ nullptr };
 
 	public:
@@ -39,10 +41,12 @@ class Battle : public Scene
 		{
 			delete[] attack;
 			delete[] defence;
+			delete[] buff;
+			delete[] debuff;
 			delete[] arrow;
 		}
 		
-		int turn = 1;
+		int turn = 1, previousturn = 0;
 		void setup();
 		void update();
 		void draw();

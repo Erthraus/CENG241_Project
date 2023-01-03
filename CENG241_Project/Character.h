@@ -33,6 +33,9 @@ public:
 	int gethealthCoef() { return healthCoef; }
 	int getattackPow() { return attackPow; }
 	int artsize;
+	bool isDebuffed = false;
+	int debuffCtr = 0;
+
 	string* art;
 	string* attackQuote;
 	string* defenceQuote;
