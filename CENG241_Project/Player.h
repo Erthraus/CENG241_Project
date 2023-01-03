@@ -93,6 +93,7 @@ class Player: public Character
 				art[17] = "          |  ||  |			";
 				art[18] = "         _\\.:||:./_			";
 				art[19] = "		   /____/\\____\\			";
+
 			}
 			else if (chc == 2) {
 				HP = 200;
@@ -103,6 +104,7 @@ class Player: public Character
 				name = "ArcherPoky";
 				maxHP = HP;
 				originalAttackCoef = attackCoef;
+
 				artsize = 19;
 				art = new string[artsize];
 				art[0] = "										  / -----------| .					";
@@ -124,6 +126,7 @@ class Player: public Character
 				art[16] = "        ##_       __/'             \\                     /||				";
 				art[17] = "         ####='     |                \\                 |/				";
 				art[18] = "      ###=======]                       \\ ---------- /|.					";
+
 			}
 			else if (chc == 3) {
 				HP = 350;
@@ -157,7 +160,7 @@ class Player: public Character
 				art[18] = "	||        ccc/        ";
 				art[19] = "=======================";
 			}
-			else if (chc == 4) {
+			/*else if (chc == 4) {
 				HP = 800;
 				attackPow = 20;
 				defencePow = 20;
@@ -180,7 +183,7 @@ class Player: public Character
 				art[9] =  "   //// ◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙ \\\\\\\\                            ";
 				art[10] = "   \\\\\\\\ ◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙ ////                           ";
 				art[11] = "    ||__________________________||		                     ";
-			}
+			}*/
 		}
 		~Player() {
 			delete[] art;
