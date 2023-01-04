@@ -16,6 +16,7 @@ class Player: public Character
 		void specialAbility(Character& ost) override;
 		void Buff();
 		void Debuff(Character& target);
+
 		string name;
 
 		Player() 
@@ -165,7 +166,7 @@ class Player: public Character
 				HP = 800;
 				attackPow = 60;
 				defencePow = 40;
-				attackCoef = 1;
+				attackCoef = 10;
 				healthCoef = 1;
 				name = "TankPoky";
 				maxHP = HP;

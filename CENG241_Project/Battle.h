@@ -21,15 +21,13 @@ class Battle : public Scene
 		void drawCursor();
 		void generateEnemies();
 		void drawEnemy(Character& currentEnemy);
-		void drawPlayer(Character& player);
+		void drawPlayer(Player& player);
 		void selectEnemy();
 		void drawHealthBar(int HP, int maxHP, int choice);
 		void enemyAttack();
 		void pauseMenu();
 		void updateCtr();
 		void dialogue(int x);
-		void dialogueAttacked();
-		void dialogueHeal();
 
 		string* attack{ nullptr };
 		string* defence{ nullptr };
@@ -59,7 +57,7 @@ class Battle : public Scene
 		vector<Vampire> vampires;
 		vector<Cyclops> cyclopses;
 		vector<Demon> demons;
-		Character currentEnemy;
+		Character* currentEnemy;
 		string currentEnemyType;
 		Player player{ characterChoice };
 };

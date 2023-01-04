@@ -5,14 +5,16 @@ using namespace std;
 
 void Player::Buff()
 {
-	attackCoef = attackCoef * (buffCoef + 100) / 100;
+	if(!isBuffed)
+		attackCoef = attackCoef * (buffCoef + 100) / 100;
 }
 
 void Player::Debuff(Character &target)
 {
-	target.setattackCoef(target.getattackCoef() * (100 - debuffCoef) / 100);
+	if(!target.isDebuffed)
+		target.setattackCoef(target.getattackCoef() * (100 - debuffCoef) / 100);
 }
 
-void Player::specialAbility(Character& ost) { //Overheal
+void Player::specialAbility(Character& ost) { 
 	return;
 }
