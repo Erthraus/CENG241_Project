@@ -521,6 +521,7 @@ void Battle::enemyAttack()		//Algorithm for enemy behavior
 				if (rand() % 2) 
 				{
 				currentEnemy.Defence();
+				dialogueHeal();
 
 				}
 				else
