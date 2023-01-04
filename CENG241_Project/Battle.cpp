@@ -350,11 +350,60 @@ void Battle::selectEnemy()		//Function to select the Current enemy
 	}
 }
 
+void Battle::dialogue()		//Function to output dialogue
+{
+	int i;
+	int xpos = 95;
+	string text{ "Hello there!" };
+	string text2{ "General Kenobi!" };
+	string text3{ "You're a bold one." };
+	string text4{ "So uncivilized." };
+	if (currentEnemyType == "imp")
+	{
+		for (i=0; i < text.size(); i++)
+		{
+			gotoxy(xpos, 10);
+			cout << text[i];
+			Sleep(125);
+			xpos++;
+		}
+	}
+	if (currentEnemyType == "vampire")
+	{
+		for (i = 0; i < text2.size(); i++)
+		{
+			gotoxy(xpos, 10);
+			cout << text2[i];
+			Sleep(125);
+			xpos++;
+		}
+	}
+	if (currentEnemyType == "cyclops")
+	{
+		for (i = 0; i < text3.size(); i++)
+		{
+			gotoxy(xpos, 10);
+			cout << text3[i];
+			Sleep(125);
+			xpos++;
+		}
+	}
+	if (currentEnemyType == "demon")
+	{
+		for (i = 0; i < text4.size(); i++)
+		{
+			gotoxy(xpos, 10);
+			cout << text4[i];
+			Sleep(125);
+			xpos++;
+		}
+	}
+
+	Sleep(500);
+}
+
 void Battle::enemyAttack()		//Algorithm for enemy behavior
 {
-	int iii=0;
-	int xpos = 95;
-	string text{"Hello there!"};
 	if (turn % 2 == 0)
 	{
 		if (timer > 30)
@@ -367,21 +416,13 @@ void Battle::enemyAttack()		//Algorithm for enemy behavior
 					currentEnemy.Defence();
 				else
 					currentEnemy.Attack(player);
-
 				turn++;
 			}
 
 			else
 			{
 				currentEnemy.Attack(player);
-				for (iii;iii< text.size() ; iii++)
-				{
-					gotoxy(xpos, 10);
-					cout << text[iii];
-					Sleep(125);
-					xpos++;
-				}
-				Sleep(1000);
+				dialogue();
 				turn++;
 			}
 

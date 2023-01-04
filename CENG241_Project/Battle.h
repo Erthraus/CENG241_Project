@@ -27,6 +27,7 @@ class Battle : public Scene
 		void enemyAttack();
 		void pauseMenu();
 		void updateCtr();
+		void dialogue();
 
 		string* attack{ nullptr };
 		string* defence{ nullptr };
