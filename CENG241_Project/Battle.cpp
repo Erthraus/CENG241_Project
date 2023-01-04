@@ -460,7 +460,7 @@ void Battle::dialogueHeal()		//Function to output dialogue
 	int i;
 	int xpos = 90;
 	string text{ "AAAARGH!!!" };
-	string text2{ "dfsg" };
+	string text2{ "Nothing a little blood can't fix." };
 	string text3{ "The likes of you cannot kill me." };
 	string text4{ "Underworld, grant me your aid!" };
 	if (currentEnemyType == "imp")
