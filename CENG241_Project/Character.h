@@ -24,11 +24,13 @@ public:
 	void Attack(Character& target);
 	void changeHP(int val, Character& target);
 	void Defence();
+	
 	void setHP(int HP) { this->HP = HP; }
 	void setattackCoef(int attackCoef) { this->attackCoef = attackCoef; }
 	void sethealthCoef(int healthCoef) { this->healthCoef = healthCoef; }
 	void setattackPow(int attackPow) { this->attackPow = attackPow; }
-	
+
+	int getDefencePow() { return defencePow; }
 	int getHP() { return HP; }
 	int getattackCoef() { return attackCoef; }
 	int getOriginalAttackCoef() { return originalAttackCoef; }

@@ -21,12 +21,18 @@ void Menu::Start()		//Function output character selection menu
 		pos.X = 5;
 		pos.Y = 4;
 		drawArr(character->art, character->artsize, pos);
-		cout << endl << endl << "Character name:" << character->name;
-		cout << endl <<"Character HP:" << character->getMaxHP();
-		cout << endl <<"Character AP:" << character->getattackPow();
+		setColor(5);
+		cout << endl << endl << "Character name: " << character->name;
+		setColor(2);
+		cout << endl <<"Character HP: " << character->getMaxHP();
+		setColor(4);
+		cout << endl <<"Character Attack Power: " << character->getattackPow() << " - " << character->getattackPow() + character->getattackCoef();
+		setColor(3);
+		cout << endl <<"Character Defence Power: " << character->getDefencePow() << " - " << character->getDefencePow() + character->gethealthCoef();
 	
 		point2:
-		cout << "\nDo you confirm character?(y/n)";
+		setColor();
+		cout << "\n\nDo you confirm character?(y/n): ";
 		cin >> characterConfirm;
 		if (characterConfirm == "y") {
 			characterChoice = tempChoice;
