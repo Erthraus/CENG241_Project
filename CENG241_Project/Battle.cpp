@@ -47,15 +47,23 @@ void Battle::drawUI()	//Function to draw User Interface
 	cout << " Remaining Enemies: " << totalEnemies;
 
 	COORD pos;
-	pos.X = WID * 3 / 5;
 	pos.Y = 3 * LEN / 4 + 4;
 
+	pos.X = WID * 5 / 8;
 	setColor(4);
 	drawArr(attack, 5, pos);
 
-	pos.X = WID * 5 / 6;
+	pos.X = WID * 7 / 8;
 	setColor(3);
 	drawArr(defence, 5, pos);
+
+	pos.X = WID / 8;
+	setColor(6);
+	drawArr(buff, 5, pos);
+
+	pos.X = WID * 3 / 8;
+	setColor(5);
+	drawArr(debuff, 5, pos);
 
 	drawHealthBar(currentEnemy.getHP(), currentEnemy.getMaxHP(), 0);
 	drawHealthBar(player.getHP(), player.getMaxHP(), 1);
@@ -127,15 +135,16 @@ void Battle::Controller()		//Function to get user inputs
 		case '\r':				// \r means enter
 			if (turn % 2)
 			{
-				if (ch)
+				if (ch == 3)
 				{
 					player.Defence();
 					turn++;
 				}
 
-				else
+				else if (ch == 2)
 				{
 					player.Attack(currentEnemy);
+					dialogue(1);
 					if (currentEnemy.getHP() <= 0)
 					{
 						if (currentEnemyType == "imp")
@@ -162,17 +171,39 @@ void Battle::Controller()		//Function to get user inputs
 						{
 							winStatus = true;
 							gameison = false;
-							break;
+							return;
 						}
 
 						selectEnemy();
 
 					}
+					
 					turn++;
 				}
+
+				else if (ch == 1)
+				{
+					player.Debuff(currentEnemy);
+					currentEnemy.isDebuffed = true;
+					currentEnemy.debuffCtr = 5;
+					turn++;
+				}
+
+				else
+				{
+					player.Buff();
+					player.isBuffed = true;
+					player.buffCtr = 5;
+					turn++;
+				}
+
 				system("cls");
 				Sleep(100);
 			}
+			break;
+		
+		case 27:			//ESC key
+			pauseMenu();
 			break;
 
 		default:
@@ -181,9 +212,9 @@ void Battle::Controller()		//Function to get user inputs
 	}
 
 	if (ch < 0)
-		ch = 1;
+		ch = 3;
 
-	ch %= 2;
+	ch %= 4;
 }
 
 void Battle::drawCursor()		//Function to draw Player cursor
@@ -191,10 +222,14 @@ void Battle::drawCursor()		//Function to draw Player cursor
 	setColor(6);
 	COORD pos;
 
-	if (ch)
-		pos.X = WID * 5 / 6 - 5;
+	if (ch == 3)
+		pos.X = WID * 7 / 8 - 4;
+	else if (ch == 2)
+		pos.X = WID * 5 / 8 - 3;
+	else if (ch == 1)
+		pos.X = WID * 3 / 8 - 4;
 	else
-		pos.X = WID * 3 / 5 - 3;
+		pos.X = WID / 8 - 4;
 
 	pos.Y = 3 * LEN / 4 + 5;
 
@@ -317,7 +352,23 @@ void Battle::selectEnemy()		//Function to select the Current enemy
 	}
 }
 
-void Battle::enemyAttack()		//Algorithm for enemy behavior
+void Battle::dialogue(int x)		//Function to output dialogue. 2 = attack, 1 = attacked, 0 = defence
+{
+	int xpos = WID / 3, ypos = LEN / 2;
+	string text = currentEnemy.Quote(x);
+	
+	for (int i=0; i < text.size(); i++)
+	{
+		gotoxy(xpos, ypos);
+		cout << text[i];
+		Sleep(40);
+		xpos++;
+	}
+
+	Sleep(300);
+}
+
+void Battle::enemyAttack()		//Enemy behavior
 {
 	if (turn % 2 == 0)
 	{
@@ -327,10 +378,17 @@ void Battle::enemyAttack()		//Algorithm for enemy behavior
 
 			if (currentEnemy.getMaxHP() * 6 / 10 >= currentEnemy.getHP())
 			{
-				if (rand() % 2)
-					currentEnemy.Defence();
+				if (rand() % 2) 
+				{
+				currentEnemy.Defence();
+				dialogue(0);
+				}
+
 				else
-					currentEnemy.Attack(player);
+				{
+				currentEnemy.Attack(player);
+				dialogue(2);
+				}
 
 				turn++;
 			}
@@ -338,6 +396,7 @@ void Battle::enemyAttack()		//Algorithm for enemy behavior
 			else
 			{
 				currentEnemy.Attack(player);
+				dialogue(2);
 				turn++;
 			}
 
@@ -354,6 +413,82 @@ void Battle::enemyAttack()		//Algorithm for enemy behavior
 	}
 }
 
+void Battle::pauseMenu()
+{
+	system("cls");
+	COORD pos;
+	pos.X = WID / 3;
+	pos.Y = LEN / 4;
+
+	string* pause = new string[10];
+	pause[0] = "?????????        ??            ???           ???    ??????????????    ?????????????";
+	pause[1] = "??      ??      ????           ???           ???    ??????????????    ?????????????";
+	pause[2] = "??       ??    ??  ??          ???           ???    ??                ??           ";
+	pause[3] = "??      ??    ??    ??         ???           ???    ??                ??           ";
+	pause[4] = "??    ??     ??      ??        ???           ???    ??????????????    ?????????????";
+	pause[5] = "??????      ????????????       ???           ???    ??????????????    ?????????????";
+	pause[6] = "??         ??????????????      ???           ???                ??    ??           ";
+	pause[7] = "??        ??            ??     ???           ???                ??    ??           ";
+	pause[8] = "??       ??              ??    ?????????????????    ??????????????    ?????????????";
+	pause[9] = "??      ??                ??   ?????????????????    ??????????????    ?????????????";
+
+	setColor();
+	drawArr(pause, 10, pos);
+
+	string names[4]{ "Mustafa Kemal OZ", "Tuna YAVUZ", "Ege ALTUG", "Arda Celal KAPLAN" };
+	
+	pos.Y = LEN / 4 + 12;
+	gotoxy(pos.X, pos.Y);
+	cout << "CREDITS:";
+
+	for (size_t i = 0; i < 4; i++)
+	{
+		setColor(i + 2);
+		gotoxy(pos.X, ++pos.Y);
+		cout << names[i];
+	}
+
+	cout << endl;
+	system("pause");
+	system("cls");
+}
+
+void Battle::updateCtr()
+{
+	if (previousturn < turn)
+	{
+		if (player.isBuffed)
+		{
+			if (player.buffCtr > 0)
+			{
+				player.buffCtr--;
+				previousturn = turn;
+			}
+
+			else
+			{
+				player.setattackCoef(player.getOriginalAttackCoef());
+				player.isBuffed = false;
+			}
+		}
+
+		if (currentEnemy.isDebuffed)
+		{
+			if (currentEnemy.debuffCtr > 0)
+			{ 
+				currentEnemy.debuffCtr--;
+				previousturn = turn;
+			}
+
+			else
+			{
+				currentEnemy.setattackCoef(currentEnemy.getattackCoef());
+				currentEnemy.isDebuffed = false;
+			}
+		}
+	}
+}
+
 void Battle::setup()		//Sets up the game
 {
 	gameison = true;
@@ -363,8 +498,8 @@ void Battle::setup()		//Sets up the game
 
 	attack = new string[5];
 	defence = new string[5];
-	//string* buff = new string[size];
-	//string* debuff = new string[size];
+	buff = new string[5];
+	debuff = new string[5];
 	arrow = new string[3];
 	
 	arrow[0] = " * ";
@@ -382,12 +517,25 @@ void Battle::setup()		//Sets up the game
 	defence[2] = "|  |  |---   |--  ";
 	defence[3] = "| /   |      |    ";
 	defence[4] = "|/    -----  |    ";
+
+	buff[0] = "|-\\    |     |   |---- ";
+	buff[1] = "|  \\   |     |   |     ";
+	buff[2] = "|--->  |     |   |--    ";
+	buff[3] = "|  /   |     |   |      ";
+	buff[4] = "|_/    |_____|   |      ";
+	
+	debuff[0] = "|\\    |-\\     |----";
+	debuff[1] = "| \\   |  \\    |    ";
+	debuff[2] = "|  |  |--->   |--    ";
+	debuff[3] = "| /   |  /    |      ";
+	debuff[4] = "|/    |_/     |      ";
 }
 
 void Battle::update()	//For things which should be checked and updated constantly
 {
+	updateCtr();
 	Controller();
-	enemyAttack();
+	if(gameison) enemyAttack();
 }
 
 void Battle::draw()		//Draws frames
