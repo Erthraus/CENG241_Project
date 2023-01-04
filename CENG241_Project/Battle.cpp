@@ -353,7 +353,8 @@ void Battle::selectEnemy()		//Function to select the Current enemy
 void Battle::enemyAttack()		//Algorithm for enemy behavior
 {
 	int iii=0;
-	string text{ "Hello there!!!" };
+	int xpos = 95;
+	string text{"Hello there!"};
 	if (turn % 2 == 0)
 	{
 		if (timer > 30)
@@ -373,7 +374,14 @@ void Battle::enemyAttack()		//Algorithm for enemy behavior
 			else
 			{
 				currentEnemy.Attack(player);
-				while(text(iii)!='/0')
+				for (iii;iii< text.size() ; iii++)
+				{
+					gotoxy(xpos, 10);
+					cout << text[iii];
+					Sleep(125);
+					xpos++;
+				}
+				Sleep(1000);
 				turn++;
 			}
 
