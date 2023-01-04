@@ -1,6 +1,5 @@
 #include "Menu.h"
 #include <iostream>
-#include <iomanip>
 #include <windows.h>
 
 using namespace std;
@@ -17,7 +16,7 @@ void Menu::Start()		//Function output character selection menu
 	system("cls");
 	cout << "Choose your Character (0 - 4): ";
 	cin >> tempChoice;
-	if (isdigit(tempChoice) == 1 && tempChoice <= 4 && 0 <= tempChoice) {
+	if (tempChoice <= 4 && 0 <= tempChoice) {
 		Player* character = new Player(tempChoice);
 		pos.X = 5;
 		pos.Y = 4;
@@ -86,7 +85,6 @@ void Menu::End()		//Function to output game status and input user choice to play
 		drawArr(defeat, 5, pos);
 		
 	}
-	cout << setw(50);
 	gotoxy(pos.X-13, pos.Y+8);
 	cout << "Do you want to play again (1 to yes, 0 to no): ";
 	cin >> replay;
