@@ -1,10 +1,12 @@
 ﻿#pragma once
 #include "Character.h"
 #include <string>
+#include "Player.h"
 
 class Imp :public Character
 {
 public:
+	void specialAbility(Character &ost) override;
 		Imp()
 		{
 			HP = 10;
@@ -50,13 +52,15 @@ public:
 		{
 			delete[] art;
 		}
-	
+		
+		void Imp_Skıll();
+		void setoac(int org) { this->originalAttackCoef = org; }
 };	
 
 class Vampire :public Character
 {
 	public:
-		
+		void specialAbility(Character& ost) override;
 		Vampire()
 		{
 			HP = 20;
@@ -107,7 +111,7 @@ class Vampire :public Character
 class Cyclops :public Character
 {
 	public:
-
+		void specialAbility(Character& ost) override;
 		Cyclops()
 		{
 			HP = 30;
@@ -169,6 +173,8 @@ class Cyclops :public Character
 class Demon :public Character
 {
 	public:
+		bool isdead = 0;
+		void specialAbility(Character &ost, Player &op);
 
 		Demon()
 		{
