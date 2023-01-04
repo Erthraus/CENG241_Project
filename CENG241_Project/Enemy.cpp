@@ -18,14 +18,9 @@ void Cyclops::specialAbility(Character& ost){ //Overheal
 	this->defencePow -= 30;
 }
 
-void Demon::specialAbility(Character& ost,Player& op) { // Burning Player
-	if (op.isburning == 0 ) {
-		op.isburning = 1;
-		op.sitct = 0;
-		op.burn();
-	}
-	else if (op.isburning == 1 )
-		op.burn();
+void Demon::specialAbility(Character& ost) { // Burning Player
+		ost.isburning = true;
+		ost.burnCtr = 5;
 }
 
 void Vampire::specialAbility(Character& ost) { // Spell Vamp

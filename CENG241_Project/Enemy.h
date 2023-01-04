@@ -38,6 +38,9 @@ public:
 
 			defenceQuotes = new string[numberofquotes];
 			defenceQuotes[0] = "Grrrrrgh...";
+
+			specialQuotes = new string[numberofquotes];
+			specialQuotes[0] = "SPECIAL!!";
 		}
 		Imp(const Imp& obj)
 		{
@@ -61,12 +64,14 @@ public:
 			attackQuotes = new string[numberofquotes];
 			attackedQuotes = new string[numberofquotes];
 			defenceQuotes = new string[numberofquotes];
+			specialQuotes = new string[numberofquotes];
 
 			for (size_t i = 0; i < numberofquotes; i++)
 			{
 				attackQuotes[i] = obj.attackQuotes[i];
 				attackedQuotes[i] = obj.attackedQuotes[i];
 				defenceQuotes[i] = obj.defenceQuotes[i];
+				specialQuotes[i] = obj.specialQuotes[i];
 			}
 		}
 
@@ -76,6 +81,7 @@ public:
 			delete[] attackedQuotes;
 			delete[] attackQuotes;
 			delete[] defenceQuotes;
+			delete[] specialQuotes;
 		}
 		
 		void Imp_Skıll();
@@ -116,6 +122,9 @@ class Vampire :public Character
 
 			defenceQuotes = new string[numberofquotes];
 			defenceQuotes[0] = "Nothing a little blood can't fix";
+
+			specialQuotes = new string[numberofquotes];
+			specialQuotes[0] = "SPECIAL!!";
 		}
 
 		Vampire(const Vampire& obj)
@@ -140,12 +149,14 @@ class Vampire :public Character
 			attackQuotes = new string[numberofquotes];
 			attackedQuotes = new string[numberofquotes];
 			defenceQuotes = new string[numberofquotes];
+			specialQuotes = new string[numberofquotes];
 
 			for (size_t i = 0; i < numberofquotes; i++)
 			{
 				attackQuotes[i] = obj.attackQuotes[i];
 				attackedQuotes[i] = obj.attackedQuotes[i];
 				defenceQuotes[i] = obj.defenceQuotes[i];
+				specialQuotes[i] = obj.specialQuotes[i];
 			}
 		}
 
@@ -155,6 +166,7 @@ class Vampire :public Character
 			delete[] attackedQuotes;
 			delete[] attackQuotes;
 			delete[] defenceQuotes;
+			delete[] specialQuotes;
 		}
 };
 
@@ -203,6 +215,9 @@ class Cyclops :public Character
 
 			defenceQuotes = new string[numberofquotes];
 			defenceQuotes[0] = "The likes of you cannot kill me";
+
+			specialQuotes = new string[numberofquotes];
+			specialQuotes[0] = "SPECIAL!!";
 		}
 
 		Cyclops(const Cyclops& obj)
@@ -227,12 +242,14 @@ class Cyclops :public Character
 			attackQuotes = new string[numberofquotes];
 			attackedQuotes = new string[numberofquotes];
 			defenceQuotes = new string[numberofquotes];
+			specialQuotes = new string[numberofquotes];
 
 			for (size_t i = 0; i < numberofquotes; i++)
 			{
 				attackQuotes[i] = obj.attackQuotes[i];
 				attackedQuotes[i] = obj.attackedQuotes[i];
 				defenceQuotes[i] = obj.defenceQuotes[i];
+				specialQuotes[i] = obj.specialQuotes[i];
 			}
 		}
 
@@ -242,14 +259,14 @@ class Cyclops :public Character
 			delete[] attackedQuotes;
 			delete[] attackQuotes;
 			delete[] defenceQuotes;
+			delete[] specialQuotes;
 		}
 };
 
 class Demon :public Character
 {
 	public:
-		bool isdead = 0;
-		void specialAbility(Character &ost, Player &op);
+		void specialAbility(Character &ost) override;
 
 		Demon()
 		{
@@ -287,6 +304,9 @@ class Demon :public Character
 
 			defenceQuotes = new string[numberofquotes];
 			defenceQuotes[0] = "Underworld, grant me your aid!";
+
+			specialQuotes = new string[numberofquotes];
+			specialQuotes[0] = "SPECIAL!!";
 		}
 
 		Demon(const Demon& obj)
@@ -311,12 +331,14 @@ class Demon :public Character
 			attackQuotes = new string[numberofquotes];
 			attackedQuotes = new string[numberofquotes];
 			defenceQuotes = new string[numberofquotes];
+			specialQuotes = new string[numberofquotes];
 
 			for (size_t i = 0; i < numberofquotes; i++)
 			{
 				attackQuotes[i] = obj.attackQuotes[i];
 				attackedQuotes[i] = obj.attackedQuotes[i];
 				defenceQuotes[i] = obj.defenceQuotes[i];
+				specialQuotes[i] = obj.specialQuotes[i];
 			}
 		}
 
@@ -326,5 +348,6 @@ class Demon :public Character
 			delete[] attackedQuotes;
 			delete[] attackQuotes;
 			delete[] defenceQuotes;
+			delete[] specialQuotes;
 		}
 };

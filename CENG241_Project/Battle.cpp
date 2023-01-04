@@ -281,7 +281,7 @@ void Battle::drawEnemy(Character& currentEnemy)		//Function to draw Enemy art
 {
 	COORD pos;
 	if (currentEnemyType == "cyclops")
-		pos.Y = LEN / 10;
+		pos.Y = LEN / 7;
 	else
 		pos.Y = LEN / 4;
 	pos.X = 3 * WID / 4;
@@ -354,7 +354,7 @@ void Battle::selectEnemy()		//Function to select the Current enemy
 
 void Battle::dialogue(int x)		//Function to output dialogue. 2 = attack, 1 = attacked, 0 = defence
 {
-	int xpos = WID / 3, ypos = LEN / 2;
+	int xpos = 7 * WID / 10, ypos = LEN / 10;
 	string text = currentEnemy.Quote(x);
 	
 	for (int i=0; i < text.size(); i++)
@@ -375,19 +375,26 @@ void Battle::enemyAttack()		//Enemy behavior
 		if (timer > 30)
 		{
 			timer = 0;
+			int x = rand() % 11;
 
 			if (currentEnemy.getMaxHP() * 6 / 10 >= currentEnemy.getHP())
 			{
-				if (rand() % 2) 
+				if (x > 5) 
 				{
 				currentEnemy.Defence();
 				dialogue(0);
 				}
 
-				else
+				else if(x > 2)
 				{
 				currentEnemy.Attack(player);
 				dialogue(2);
+				}
+
+				else
+				{
+					currentEnemy.specialAbility(player);
+					dialogue(3);
 				}
 
 				turn++;
@@ -395,8 +402,18 @@ void Battle::enemyAttack()		//Enemy behavior
 
 			else
 			{
-				currentEnemy.Attack(player);
-				dialogue(2);
+				if (x > 8)
+				{
+					currentEnemy.specialAbility(player);
+					dialogue(3);
+				}
+				
+				else
+				{
+					currentEnemy.Attack(player);
+					dialogue(2);
+				}
+
 				turn++;
 			}
 
@@ -462,7 +479,6 @@ void Battle::updateCtr()
 			if (player.buffCtr > 0)
 			{
 				player.buffCtr--;
-				previousturn = turn;
 			}
 
 			else
@@ -477,7 +493,6 @@ void Battle::updateCtr()
 			if (currentEnemy.debuffCtr > 0)
 			{ 
 				currentEnemy.debuffCtr--;
-				previousturn = turn;
 			}
 
 			else
@@ -486,6 +501,13 @@ void Battle::updateCtr()
 				currentEnemy.isDebuffed = false;
 			}
 		}
+
+		if (player.isburning)
+		{
+			player.Burn();
+		}
+
+		previousturn = turn;
 	}
 }
 

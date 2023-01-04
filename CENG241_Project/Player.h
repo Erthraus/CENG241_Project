@@ -13,22 +13,11 @@ class Player: public Character
 		int buffCoef = 50;
 		int debuffCoef = 30;
 
+		void specialAbility(Character& ost) override;
 		void Buff();
 		void Debuff(Character& target);
 		string name;
-		bool isburning = 0;
-		int sitct = 0;
-		void burn() {
-			if (isburning == 1 && sitct <=2) {
-				if(getHP() > 10)
-					setHP(getHP() - 10);
-				sitct++;
-			}
-			else if (isburning == 1 && sitct == 3) {
-				isburning = 0;
-				sitct = 0;
-			}
-		}
+
 		Player() 
 		{
 			HP = 0;

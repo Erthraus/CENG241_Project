@@ -24,6 +24,7 @@ public:
 	void Attack(Character& target);
 	void changeHP(int val, Character& target);
 	void Defence();
+	void Burn();
 	
 	void setHP(int HP) { this->HP = HP; }
 	void setattackCoef(int attackCoef) { this->attackCoef = attackCoef; }
@@ -41,10 +42,13 @@ public:
 	int artsize;
 	bool isDebuffed = false;
 	int debuffCtr = 0;
+	bool isburning = false;
+	int burnCtr = 0;
 
 	string* art{ nullptr };
 	string* attackQuotes{ nullptr };
 	string* defenceQuotes{ nullptr };
 	string* attackedQuotes{ nullptr };
+	string* specialQuotes{ nullptr };
 };
 

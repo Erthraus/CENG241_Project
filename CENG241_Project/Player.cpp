@@ -12,3 +12,7 @@ void Player::Debuff(Character &target)
 {
 	target.setattackCoef(target.getattackCoef() * (100 - debuffCoef) / 100);
 }
+
+void Player::specialAbility(Character& ost) { //Overheal
+	return;
+}
