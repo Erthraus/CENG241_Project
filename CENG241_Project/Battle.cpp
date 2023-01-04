@@ -353,11 +353,11 @@ void Battle::selectEnemy()		//Function to select the Current enemy
 void Battle::dialogue()		//Function to output dialogue
 {
 	int i;
-	int xpos = 95;
-	string text{ "Hello there!" };
-	string text2{ "General Kenobi!" };
-	string text3{ "You're a bold one." };
-	string text4{ "So uncivilized." };
+	int xpos = 90;
+	string text{ "Baaargh!" };
+	string text2{ "I can smell your blood." };
+	string text3{ "I will devour you." };
+	string text4{ "Let me give you a little taste of Hell." };
 	if (currentEnemyType == "imp")
 	{
 		for (i=0; i < text.size(); i++)
@@ -415,7 +415,11 @@ void Battle::enemyAttack()		//Algorithm for enemy behavior
 				if (rand() % 2)
 					currentEnemy.Defence();
 				else
-					currentEnemy.Attack(player);
+				{
+				
+				currentEnemy.Attack(player);
+				dialogue();
+				}
 				turn++;
 			}
 
