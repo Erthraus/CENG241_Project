@@ -144,6 +144,7 @@ void Battle::Controller()		//Function to get user inputs
 				else if (ch == 2)
 				{
 					player.Attack(currentEnemy);
+					dialogueAttacked();
 					if (currentEnemy.getHP() <= 0)
 					{
 						if (currentEnemyType == "imp")
@@ -364,7 +365,7 @@ void Battle::dialogue()		//Function to output dialogue
 		{
 			gotoxy(xpos, 10);
 			cout << text[i];
-			Sleep(125);
+			Sleep(75);
 			xpos++;
 		}
 	}
@@ -374,7 +375,7 @@ void Battle::dialogue()		//Function to output dialogue
 		{
 			gotoxy(xpos, 10);
 			cout << text2[i];
-			Sleep(125);
+			Sleep(75);
 			xpos++;
 		}
 	}
@@ -384,7 +385,7 @@ void Battle::dialogue()		//Function to output dialogue
 		{
 			gotoxy(xpos, 10);
 			cout << text3[i];
-			Sleep(125);
+			Sleep(75);
 			xpos++;
 		}
 	}
@@ -394,13 +395,118 @@ void Battle::dialogue()		//Function to output dialogue
 		{
 			gotoxy(xpos, 10);
 			cout << text4[i];
-			Sleep(125);
+			Sleep(75);
 			xpos++;
 		}
 	}
 
-	Sleep(500);
+	Sleep(300);
 }
+
+void Battle::dialogueAttacked()		//Function to output dialogue
+{
+	int i;
+	int xpos = 90;
+	string text{ "AAAARGH!!!" };
+	string text2{ "You will pay for that." };
+	string text3{ "Nothing but a scratch." };
+	string text4{ "I won't go back to hell." };
+	if (currentEnemyType == "imp")
+	{
+		for (i = 0; i < text.size(); i++)
+		{
+			gotoxy(xpos, 10);
+			cout << text[i];
+			Sleep(75);
+			xpos++;
+		}
+	}
+	if (currentEnemyType == "vampire")
+	{
+		for (i = 0; i < text2.size(); i++)
+		{
+			gotoxy(xpos, 10);
+			cout << text2[i];
+			Sleep(75);
+			xpos++;
+		}
+	}
+	if (currentEnemyType == "cyclops")
+	{
+		for (i = 0; i < text3.size(); i++)
+		{
+			gotoxy(xpos, 10);
+			cout << text3[i];
+			Sleep(75);
+			xpos++;
+		}
+	}
+	if (currentEnemyType == "demon")
+	{
+		for (i = 0; i < text4.size(); i++)
+		{
+			gotoxy(xpos, 10);
+			cout << text4[i];
+			Sleep(75);
+			xpos++;
+		}
+	}
+
+	Sleep(300);
+}
+
+void Battle::dialogueHeal()		//Function to output dialogue
+{
+	int i;
+	int xpos = 90;
+	string text{ "AAAARGH!!!" };
+	string text2{ "dfsg" };
+	string text3{ "The likes of you cannot kill me." };
+	string text4{ "Underworld, grant me your aid!" };
+	if (currentEnemyType == "imp")
+	{
+		for (i = 0; i < text.size(); i++)
+		{
+			gotoxy(xpos, 10);
+			cout << text[i];
+			Sleep(75);
+			xpos++;
+		}
+	}
+	if (currentEnemyType == "vampire")
+	{
+		for (i = 0; i < text2.size(); i++)
+		{
+			gotoxy(xpos, 10);
+			cout << text2[i];
+			Sleep(75);
+			xpos++;
+		}
+	}
+	if (currentEnemyType == "cyclops")
+	{
+		for (i = 0; i < text3.size(); i++)
+		{
+			gotoxy(xpos, 10);
+			cout << text3[i];
+			Sleep(75);
+			xpos++;
+		}
+	}
+	if (currentEnemyType == "demon")
+	{
+		for (i = 0; i < text4.size(); i++)
+		{
+			gotoxy(xpos, 10);
+			cout << text4[i];
+			Sleep(75);
+			xpos++;
+		}
+	}
+
+	Sleep(300);
+}
+
 
 void Battle::enemyAttack()		//Algorithm for enemy behavior
 {
@@ -412,8 +518,11 @@ void Battle::enemyAttack()		//Algorithm for enemy behavior
 
 			if (currentEnemy.getMaxHP() * 6 / 10 >= currentEnemy.getHP())
 			{
-				if (rand() % 2)
-					currentEnemy.Defence();
+				if (rand() % 2) 
+				{
+				currentEnemy.Defence();
+
+				}
 				else
 				{
 				
