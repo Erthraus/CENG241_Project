@@ -361,6 +361,7 @@ void Battle::dialogue()		//Function to output dialogue
 	string text4{ "Let me give you a little taste of Hell." };
 	if (currentEnemyType == "imp")
 	{
+		xpos = 100;
 		for (i=0; i < text.size(); i++)
 		{
 			gotoxy(xpos, 10);
@@ -413,6 +414,7 @@ void Battle::dialogueAttacked()		//Function to output dialogue
 	string text4{ "I won't go back to hell." };
 	if (currentEnemyType == "imp")
 	{
+		xpos = 100;
 		for (i = 0; i < text.size(); i++)
 		{
 			gotoxy(xpos, 10);
@@ -459,12 +461,13 @@ void Battle::dialogueHeal()		//Function to output dialogue
 {
 	int i;
 	int xpos = 90;
-	string text{ "AAAARGH!!!" };
+	string text{ "Grrrrrgh..." };
 	string text2{ "Nothing a little blood can't fix." };
 	string text3{ "The likes of you cannot kill me." };
 	string text4{ "Underworld, grant me your aid!" };
 	if (currentEnemyType == "imp")
 	{
+		xpos = 100;
 		for (i = 0; i < text.size(); i++)
 		{
 			gotoxy(xpos, 10);
