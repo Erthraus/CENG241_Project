@@ -21,24 +21,43 @@ class Battle : public Scene
 		void drawCursor();
 		void generateEnemies();
 		void drawEnemy(Character& currentEnemy);
-		void drawPlayer(Character& player);
+		void drawPlayer(Player& player);
 		void selectEnemy();
 		void drawHealthBar(int HP, int maxHP, int choice);
 		void enemyAttack();
+		void pauseMenu();
+		void updateCtr();
+		void dialogue(int x);
+
+		string* attack{ nullptr };
+		string* defence{ nullptr };
+		string* buff{ nullptr };
+		string* debuff{ nullptr };
+		string* arrow{ nullptr };
 
 	public:
-		int turn = 1;
+		Battle() = default;
+		
+		~Battle()
+		{
+			delete[] attack;
+			delete[] defence;
+			delete[] buff;
+			delete[] debuff;
+			delete[] arrow;
+		}
+		
+		int turn = 1, previousturn = 0;
 		void setup();
 		void update();
 		void draw();
-		int impcount, vampirecount, cyclopscount, demoncount, totalEnemies;
+		int totalEnemies;
+		int currentEnemyLoc;
 		vector<Imp> imps;
 		vector<Vampire> vampires;
 		vector<Cyclops> cyclopses;
 		vector<Demon> demons;
-		Character currentEnemy;
+		Character* currentEnemy;
 		string currentEnemyType;
 		Player player{ characterChoice };
-
-		friend class Menu;
 };

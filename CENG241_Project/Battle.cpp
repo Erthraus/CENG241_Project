@@ -41,40 +41,31 @@ void Battle::drawMap()	//Function to draw Map
 void Battle::drawUI()	//Function to draw User Interface
 {
 	gotoxy(1, 1);
-	setColor(5);
+	setColor(7);
 	cout << " TURN: " << turn;
 	gotoxy(1, 2);
 	cout << " Remaining Enemies: " << totalEnemies;
 
 	COORD pos;
-	int size{ 5 };
-	pos.X = WID * 3 / 5;
 	pos.Y = 3 * LEN / 4 + 4;
-	string* attack = new string[size];
-	string* defence = new string[size];
-	//string* buff = new string[size];
-	//string* debuff = new string[size];
 
-	attack[0] = "    ^   -------  |   /  ";
-	attack[1] = "   / \\     |     |  /  ";
-	attack[2] = "  /---\\    |     |<    ";
-	attack[3] = " /     \\   |     |  \\ ";
-	attack[4] = "/       \\  |     |   \\";
+	pos.X = WID * 5 / 8;
+	setColor(12);
+	drawArr(attack, 5, pos);
 
-	defence[0] = "|\\    -----  ----";
-	defence[1] = "| \\   |      |   ";
-	defence[2] = "|  |  |---   |--  ";
-	defence[3] = "| /   |      |    ";
-	defence[4] = "|/    -----  |    ";
+	pos.X = WID * 7 / 8;
+	setColor(11);
+	drawArr(defence, 5, pos);
 
-	setColor(4);
-	drawArr(attack, size, pos);
+	pos.X = WID / 8;
+	setColor(14);
+	drawArr(buff, 5, pos);
 
-	pos.X = WID * 5 / 6;
-	setColor(3);
-	drawArr(defence, size, pos);
+	pos.X = WID * 3 / 8;
+	setColor(13);
+	drawArr(debuff, 5, pos);
 
-	drawHealthBar(currentEnemy.getHP(), currentEnemy.getMaxHP(), 0);
+	drawHealthBar(currentEnemy->getHP(), currentEnemy->getMaxHP(), 0);
 	drawHealthBar(player.getHP(), player.getMaxHP(), 1);
 }
 
@@ -91,15 +82,28 @@ void Battle::drawHealthBar(int HP, int maxHP, int choice)	// 0 for enemies, 1 fo
 
 		gotoxy(pos.X, pos.Y);
 		cout << HP;
+
 		gotoxy(pos.X, pos.Y + 1);
-		if (player.getHP())
+		for (size_t i = 0; i < float(HP) / healthperbox; i++)
 		{
-			for (size_t i = 0; i < float(HP) / healthperbox; i++)
-			{
-				if (i == 5)
-					gotoxy(pos.X, pos.Y + 2);
-				cout << "[]";
-			}
+			if (i == 5)
+				gotoxy(pos.X, pos.Y + 2);
+			cout << "[]";
+		}
+
+		int posy = pos.Y + 1;
+		if (player.isBuffed)
+		{
+			gotoxy(pos.X + 11, posy++);
+			setColor(3);
+			cout << "Buffed(+" << player.getattackCoef() - player.getOriginalAttackCoef()  << " AtkCoef)";
+		}
+
+		if (player.isburning)
+		{
+			gotoxy(pos.X + 11, posy++);
+			setColor(4);
+			cout << "Burning(-10HP)";
 		}
 	}
 
@@ -112,15 +116,20 @@ void Battle::drawHealthBar(int HP, int maxHP, int choice)	// 0 for enemies, 1 fo
 
 		gotoxy(enemy.X, enemy.Y);
 		cout << HP;
+
 		gotoxy(enemy.X, enemy.Y + 1);
-		if (currentEnemy.getHP())
+		for (size_t i = 0; i < float(HP) / healthperbox; i++)
 		{
-			for (size_t i = 0; i < float(HP) / healthperbox; i++)
-			{
-				if (i == 5)
-					gotoxy(enemy.X, enemy.Y + 2);
-				cout << "[]";
-			}
+			if (i == 5)
+				gotoxy(enemy.X, enemy.Y + 2);
+			cout << "[]";
+		}
+
+		if (currentEnemy->isDebuffed)
+		{
+			gotoxy(enemy.X + 11, enemy.Y + 1);
+			setColor(5);
+			cout << "Debuffed(-" << currentEnemy->getOriginalAttackCoef() - currentEnemy->getattackCoef() << " AtkCoef)";
 		}
 	}
 }
@@ -133,62 +142,86 @@ void Battle::Controller()		//Function to get user inputs
 		{
 		case 'a':
 			ch--;
+			system("cls");
 			break;
 
 		case 'd':
 			ch++;
+			system("cls");
 			break;
 
 		case '\r':				// \r means enter
 			if (turn % 2)
 			{
-				if (ch)
+				if (ch == 3)
 				{
 					player.Defence();
 					turn++;
 				}
 
-				else
+				else if (ch == 2)
 				{
-					player.Attack(currentEnemy);
-					if (currentEnemy.getHP() == 0)
+					player.Attack(*currentEnemy);
+					dialogue(1);
+					if (currentEnemy->getHP() <= 0)
 					{
 						if (currentEnemyType == "imp")
 						{
 							totalEnemies--;
-							impcount--;
-
+							imps.erase(imps.begin() + currentEnemyLoc);
 						}
 						else if (currentEnemyType == "vampire")
 						{
 							totalEnemies--;
-							vampirecount--;
+							vampires.erase(vampires.begin() + currentEnemyLoc);
 						}
 						else if (currentEnemyType == "cyclops")
 						{
 							totalEnemies--;
-							cyclopscount--;
+							cyclopses.erase(cyclopses.begin() + currentEnemyLoc);
 						}
 						else if (currentEnemyType == "demon")
 						{
 							totalEnemies--;
-							demoncount--;
+							demons.erase(demons.begin() + currentEnemyLoc);
 						}
 						if (totalEnemies == 0)
 						{
 							winStatus = true;
 							gameison = false;
-							break;
+							return;
 						}
 
 						selectEnemy();
 
 					}
+					
 					turn++;
 				}
 
+				else if (ch == 1)
+				{
+					player.Debuff(*currentEnemy);
+					currentEnemy->isDebuffed = true;
+					currentEnemy->debuffCtr = 5;
+					turn++;
+				}
+
+				else
+				{
+					player.Buff();
+					player.isBuffed = true;
+					player.buffCtr = 5;
+					turn++;
+				}
+
+				system("cls");
 				Sleep(100);
 			}
+			break;
+		
+		case 27:			//ESC key
+			pauseMenu();
 			break;
 
 		default:
@@ -197,45 +230,34 @@ void Battle::Controller()		//Function to get user inputs
 	}
 
 	if (ch < 0)
-		ch = 1;
+		ch = 3;
 
-	ch %= 2;
+	ch %= 4;
 }
 
 void Battle::drawCursor()		//Function to draw Player cursor
 {
 	setColor(6);
-	int size{ 3 };
 	COORD pos;
-	string* arrow = new string[size];
-	arrow[0] = " * ";
-	arrow[1] = "***";
-	arrow[2] = " * ";
 
-	if (ch)
-		pos.X = WID * 5 / 6 - 5;
+	if (ch == 3)
+		pos.X = WID * 7 / 8 - 4;
+	else if (ch == 2)
+		pos.X = WID * 5 / 8 - 3;
+	else if (ch == 1)
+		pos.X = WID * 3 / 8 - 4;
 	else
-		pos.X = WID * 3 / 5 - 3;
+		pos.X = WID / 8 - 4;
 
 	pos.Y = 3 * LEN / 4 + 5;
 
-	switch (ch)
-	{
-	case 0:
-		drawArr(arrow, size, pos);
-		break;
-
-	case 1:
-		drawArr(arrow, size, pos);
-		break;
-
-	default:
-		break;
-	}
+	drawArr(arrow, 3, pos);
 }
 
 void Battle::generateEnemies()		//Function to generate a horde of enemies
 {
+	int impcount, vampirecount, cyclopscount, demoncount;
+
 	impcount = rand() % 5 + 1;
 	vampirecount = rand() % 4 + 1;
 	cyclopscount = rand() % 3 + 1;
@@ -277,20 +299,34 @@ void Battle::drawEnemy(Character& currentEnemy)		//Function to draw Enemy art
 {
 	COORD pos;
 	if (currentEnemyType == "cyclops")
-		pos.Y = LEN / 10;
+		pos.Y = LEN / 6;
 	else
 		pos.Y = LEN / 4;
 	pos.X = 3 * WID / 4;
-	setColor(4);
+
+	if (currentEnemy.isDebuffed)
+		setColor(5);
+	else
+		setColor(4);
+	
 	drawArr(currentEnemy.art, currentEnemy.artsize, pos);
 }
 
-void Battle::drawPlayer(Character& player)		//Function to draw Player art
+void Battle::drawPlayer(Player& player)		//Function to draw Player art
 {
 	COORD pos;
 	pos.X = WID / 10;
 	pos.Y = 10;
-	setColor(3);
+
+	if (player.isburning)
+		setColor(12);
+
+	else if (player.isBuffed)
+		setColor(6);
+
+	else
+		setColor(3);
+
 	drawArr(player.art, player.artsize, pos);
 }
 
@@ -304,79 +340,112 @@ void Battle::selectEnemy()		//Function to select the Current enemy
 
 		if (selector == 0)
 		{
-			for (size_t i = 0; i < impcount; i++)
+			for (size_t i = 0; i < imps.size(); i++)
 			{
-				if (imps.at(i).getHP() > 0)
-				{
-					currentEnemy = imps.at(i);
+					currentEnemy = &imps.at(i);
 					currentEnemyType = "imp";
+					currentEnemyLoc = i;
 					flag = 0;
-				}
 			}
 		}
 
 		else if (selector == 1)
 		{
-			for (size_t i = 0; i < vampirecount; i++)
+			for (size_t i = 0; i < vampires.size(); i++)
 			{
-				if (vampires.at(i).getHP() > 0)
-				{
-					currentEnemy = vampires.at(i);
+					currentEnemy = &vampires.at(i);
 					currentEnemyType = "vampire";
+					currentEnemyLoc = i;
 					flag = 0;
-				}
 			}
 		}
 
 		else if (selector == 2)
 		{
-			for (size_t i = 0; i < cyclopscount; i++)
+			for (size_t i = 0; i < cyclopses.size(); i++)
 			{
-				if (cyclopses.at(i).getHP() > 0)
-				{
-					currentEnemy = cyclopses.at(i);
+					currentEnemy = &cyclopses.at(i);
 					currentEnemyType = "cyclops";
+					currentEnemyLoc = i;
 					flag = 0;
-				}
 			}
 		}
 
 		else if (selector == 3)
 		{
-			for (size_t i = 0; i < demoncount; i++)
+			for (size_t i = 0; i < demons.size(); i++)
 			{
-				if (demons.at(i).getHP() > 0)
-				{
-					currentEnemy = demons.at(i);
+					currentEnemy = &demons.at(i);
 					currentEnemyType = "demon";
+					currentEnemyLoc = i;
 					flag = 0;
-				}
 			}
 		}
 	}
 }
 
-void Battle::enemyAttack()		//Algorithm for enemy behavior
+void Battle::dialogue(int x)		//Function to output dialogue. 2 = attack, 1 = attacked, 0 = defence
+{
+	int xpos = 7 * WID / 10, ypos = LEN / 10;
+	string text = currentEnemy->Quote(x);
+	
+	for (int i=0; i < text.size(); i++)
+	{
+		gotoxy(xpos, ypos);
+		cout << text[i];
+		Sleep(40);
+		xpos++;
+	}
+
+	Sleep(300);
+}
+
+void Battle::enemyAttack()		//Enemy behavior
 {
 	if (turn % 2 == 0)
 	{
-		if (timer > 16)
+		if (timer > 30)
 		{
 			timer = 0;
+			int x = rand() % 11;
 
-			if (currentEnemy.getMaxHP() / currentEnemy.getHP() >= 2)
+			if (currentEnemy->getMaxHP() * 6 / 10 >= currentEnemy->getHP())
 			{
-				if (rand() % 2)
-					currentEnemy.Defence();
+				if (x > 5) 
+				{
+				currentEnemy->Defence();
+				dialogue(0);
+				}
+
+				else if(x > 2)
+				{
+				currentEnemy->Attack(player);
+				dialogue(2);
+				}
+
 				else
-					currentEnemy.Attack(player);
+				{
+					currentEnemy->specialAbility(player);
+					dialogue(3);
+				}
 
 				turn++;
 			}
 
 			else
 			{
-				currentEnemy.Attack(player);
+				if (x > 8)
+				{
+					currentEnemy->specialAbility(player);
+					dialogue(3);
+				}
+				
+				else
+				{
+					currentEnemy->Attack(player);
+					dialogue(2);
+				}
+
 				turn++;
 			}
 
@@ -385,9 +454,94 @@ void Battle::enemyAttack()		//Algorithm for enemy behavior
 				gameison = false;
 				winStatus = false;
 			}
+
+			system("cls");
 		}
 
 		timer++;
+	}
+}
+
+void Battle::pauseMenu()
+{
+	system("cls");
+	COORD pos;
+	pos.X = WID / 3;
+	pos.Y = LEN / 4;
+
+	string* pause = new string[10];
+	pause[0] = "?????????        ??            ???           ???    ??????????????    ?????????????";
+	pause[1] = "??      ??      ????           ???           ???    ??????????????    ?????????????";
+	pause[2] = "??       ??    ??  ??          ???           ???    ??                ??           ";
+	pause[3] = "??      ??    ??    ??         ???           ???    ??                ??           ";
+	pause[4] = "??    ??     ??      ??        ???           ???    ??????????????    ?????????????";
+	pause[5] = "??????      ????????????       ???           ???    ??????????????    ?????????????";
+	pause[6] = "??         ??????????????      ???           ???                ??    ??           ";
+	pause[7] = "??        ??            ??     ???           ???                ??    ??           ";
+	pause[8] = "??       ??              ??    ?????????????????    ??????????????    ?????????????";
+	pause[9] = "??      ??                ??   ?????????????????    ??????????????    ?????????????";
+
+	setColor(11);
+	drawArr(pause, 10, pos);
+
+	string names[4]{ "Mustafa Kemal OZ", "Tuna YAVUZ", "Ege ALTUG", "Arda Celal KAPLAN" };
+	
+	pos.Y = LEN / 4 + 12;
+	gotoxy(pos.X, pos.Y);
+	cout << "CREDITS:";
+
+	for (size_t i = 0; i < 4; i++)
+	{
+		setColor(i + 2);
+		gotoxy(pos.X, ++pos.Y);
+		cout << names[i];
+	}
+
+	cout << endl;
+	system("pause");
+	system("cls");
+}
+
+void Battle::updateCtr()
+{
+	if (previousturn < turn)
+	{
+		if (player.isBuffed)
+		{
+			if (player.buffCtr > 0)
+			{
+				player.buffCtr--;
+			}
+
+			else
+			{
+				player.setattackCoef(player.getOriginalAttackCoef());
+				player.isBuffed = false;
+				system("cls");
+			}
+		}
+
+		if (currentEnemy->isDebuffed)
+		{
+			if (currentEnemy->debuffCtr > 0)
+			{ 
+				currentEnemy->debuffCtr--;
+			}
+
+			else
+			{
+				currentEnemy->setattackCoef(currentEnemy->getattackCoef());
+				currentEnemy->isDebuffed = false;
+				system("cls");
+			}
+		}
+
+		if (player.isburning)
+		{
+			player.Burn();
+		}
+
+		previousturn = turn;
 	}
 }
 
@@ -397,19 +551,57 @@ void Battle::setup()		//Sets up the game
 	winStatus = false;
 	generateEnemies();
 	selectEnemy();
+
+	attack = new string[5];
+	defence = new string[5];
+	buff = new string[5];
+	debuff = new string[5];
+	arrow = new string[3];
+	
+	arrow[0] = " * ";
+	arrow[1] = "***";
+	arrow[2] = " * ";
+
+	attack[0] = "    ^   -------  |   /  ";
+	attack[1] = "   / \\     |     |  /  ";
+	attack[2] = "  /---\\    |     |<    ";
+	attack[3] = " /     \\   |     |  \\ ";
+	attack[4] = "/       \\  |     |   \\";
+
+	defence[0] = "|\\    -----  ----";
+	defence[1] = "| \\   |      |   ";
+	defence[2] = "|  |  |---   |--  ";
+	defence[3] = "| /   |      |    ";
+	defence[4] = "|/    -----  |    ";
+
+	buff[0] = "|-\\    |     |   |---- ";
+	buff[1] = "|  \\   |     |   |     ";
+	buff[2] = "|--->  |     |   |--    ";
+	buff[3] = "|  /   |     |   |      ";
+	buff[4] = "|_/    |_____|   |      ";
+	
+	debuff[0] = "|\\    |-\\     |----";
+	debuff[1] = "| \\   |  \\    |    ";
+	debuff[2] = "|  |  |--->   |--    ";
+	debuff[3] = "| /   |  /    |      ";
+	debuff[4] = "|/    |_/     |      ";
 }
 
 void Battle::update()	//For things which should be checked and updated constantly
 {
+	updateCtr();
 	Controller();
-	enemyAttack();
+	if(gameison) enemyAttack();
 }
 
 void Battle::draw()		//Draws frames
 {
-	drawMap();
-	drawUI();
-	drawCursor();
-	drawPlayer(player);
-	drawEnemy(currentEnemy);
+	if (gameison)
+	{
+		drawMap();
+		drawUI();
+		drawCursor();
+		drawPlayer(player);
+		drawEnemy(*currentEnemy);
+	}
 }

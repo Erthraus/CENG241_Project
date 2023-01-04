@@ -1,22 +1,24 @@
 ﻿#pragma once
 #include "Character.h"
 #include <string>
+#include "Player.h"
 
 class Imp :public Character
 {
 public:
+	void specialAbility(Character &ost) override;
 		Imp()
 		{
-			HP = 10;
-			attackPow = 1;
-			defencePow = 1;
-			attackCoef = 5;
-			healthCoef = 2;
+			HP = 40;
+			attackPow = 11;
+			defencePow = 5;
+			attackCoef = 3;
+			healthCoef = 1;
 			maxHP = HP;
 			originalAttackCoef = attackCoef;
+			
 			artsize = 9;
 			art = new string[artsize];
-
 			art[0] = "   |\\     ____";
 			art[1] = "   | \\.-./ .-'";
 			art[2] = "    \\ _  _(   ";
@@ -26,6 +28,19 @@ public:
 			art[6] = "    |  \\vvv   ";
 			art[7] = "    |  |__    ";
 			art[8] = "   /      `-. ";
+
+			numberofquotes = 1;
+			attackQuotes = new string[numberofquotes];
+			attackQuotes[0] = "Baaargh!";
+
+			attackedQuotes = new string[numberofquotes];
+			attackedQuotes[0] = "AAAARGH!!!";
+
+			defenceQuotes = new string[numberofquotes];
+			defenceQuotes[0] = "Grrrrrgh...";
+
+			specialQuotes = new string[numberofquotes];
+			specialQuotes[0] = "SPECIAL!!";
 		}
 		Imp(const Imp& obj)
 		{
@@ -44,19 +59,39 @@ public:
 			{
 				art[i] = obj.art[i];
 			}
+
+			numberofquotes = obj.numberofquotes;
+			attackQuotes = new string[numberofquotes];
+			attackedQuotes = new string[numberofquotes];
+			defenceQuotes = new string[numberofquotes];
+			specialQuotes = new string[numberofquotes];
+
+			for (size_t i = 0; i < numberofquotes; i++)
+			{
+				attackQuotes[i] = obj.attackQuotes[i];
+				attackedQuotes[i] = obj.attackedQuotes[i];
+				defenceQuotes[i] = obj.defenceQuotes[i];
+				specialQuotes[i] = obj.specialQuotes[i];
+			}
 		}
 
 		~Imp()
 		{
 			delete[] art;
+			delete[] attackedQuotes;
+			delete[] attackQuotes;
+			delete[] defenceQuotes;
+			delete[] specialQuotes;
 		}
-	
+		
+		void Imp_Skıll();
+		void setoac(int org) { this->originalAttackCoef = org; }
 };	
 
 class Vampire :public Character
 {
 	public:
-		
+		void specialAbility(Character& ost) override;
 		Vampire()
 		{
 			HP = 20;
@@ -77,6 +112,19 @@ class Vampire :public Character
 			art[6] = "  \\ \\v-.-v/ /  ";
 			art[7] = "   \\ `===' /   ";
 			art[8] = "    `-----`    ";
+
+			numberofquotes = 1;
+			attackQuotes = new string[numberofquotes];
+			attackQuotes[0] = "I can smell your blood";
+
+			attackedQuotes = new string[numberofquotes];
+			attackedQuotes[0] = "You will pay for that";
+
+			defenceQuotes = new string[numberofquotes];
+			defenceQuotes[0] = "Nothing a little blood can't fix";
+
+			specialQuotes = new string[numberofquotes];
+			specialQuotes[0] = "SPECIAL!!";
 		}
 
 		Vampire(const Vampire& obj)
@@ -96,18 +144,36 @@ class Vampire :public Character
 			{
 				art[i] = obj.art[i];
 			}
+
+			numberofquotes = obj.numberofquotes;
+			attackQuotes = new string[numberofquotes];
+			attackedQuotes = new string[numberofquotes];
+			defenceQuotes = new string[numberofquotes];
+			specialQuotes = new string[numberofquotes];
+
+			for (size_t i = 0; i < numberofquotes; i++)
+			{
+				attackQuotes[i] = obj.attackQuotes[i];
+				attackedQuotes[i] = obj.attackedQuotes[i];
+				defenceQuotes[i] = obj.defenceQuotes[i];
+				specialQuotes[i] = obj.specialQuotes[i];
+			}
 		}
 
 		~Vampire()
 		{
 			delete[] art;
+			delete[] attackedQuotes;
+			delete[] attackQuotes;
+			delete[] defenceQuotes;
+			delete[] specialQuotes;
 		}
 };
 
 class Cyclops :public Character
 {
 	public:
-
+		void specialAbility(Character& ost) override;
 		Cyclops()
 		{
 			HP = 30;
@@ -139,6 +205,19 @@ class Cyclops :public Character
 			art[17] = "       `.  .'      `.  /		  ";
 			art[18] = "         \\           .'		  ";
 			art[19] = "          `-..___..-`		  ";
+
+			numberofquotes = 1;
+			attackQuotes = new string[numberofquotes];
+			attackQuotes[0] = "I will devour you";
+
+			attackedQuotes = new string[numberofquotes];
+			attackedQuotes[0] = "Nothing but a scratch";
+
+			defenceQuotes = new string[numberofquotes];
+			defenceQuotes[0] = "The likes of you cannot kill me";
+
+			specialQuotes = new string[numberofquotes];
+			specialQuotes[0] = "SPECIAL!!";
 		}
 
 		Cyclops(const Cyclops& obj)
@@ -158,17 +237,36 @@ class Cyclops :public Character
 			{
 				art[i] = obj.art[i];
 			}
+
+			numberofquotes = obj.numberofquotes;
+			attackQuotes = new string[numberofquotes];
+			attackedQuotes = new string[numberofquotes];
+			defenceQuotes = new string[numberofquotes];
+			specialQuotes = new string[numberofquotes];
+
+			for (size_t i = 0; i < numberofquotes; i++)
+			{
+				attackQuotes[i] = obj.attackQuotes[i];
+				attackedQuotes[i] = obj.attackedQuotes[i];
+				defenceQuotes[i] = obj.defenceQuotes[i];
+				specialQuotes[i] = obj.specialQuotes[i];
+			}
 		}
 
 		~Cyclops()
 		{
 			delete[] art;
+			delete[] attackedQuotes;
+			delete[] attackQuotes;
+			delete[] defenceQuotes;
+			delete[] specialQuotes;
 		}
 };
 
 class Demon :public Character
 {
 	public:
+		void specialAbility(Character &ost) override;
 
 		Demon()
 		{
@@ -196,6 +294,19 @@ class Demon :public Character
 			art[12] = "        |     |		   ";
 			art[13] = "        |_____|		   ";
 			art[14] = "        |_____|         ";
+
+			numberofquotes = 1;
+			attackQuotes = new string[numberofquotes];
+			attackQuotes[0] = "Let me give you a little taste of Hell";
+
+			attackedQuotes = new string[numberofquotes];
+			attackedQuotes[0] = "I won't go back to hell";
+
+			defenceQuotes = new string[numberofquotes];
+			defenceQuotes[0] = "Underworld, grant me your aid!";
+
+			specialQuotes = new string[numberofquotes];
+			specialQuotes[0] = "SPECIAL!!";
 		}
 
 		Demon(const Demon& obj)
@@ -215,10 +326,28 @@ class Demon :public Character
 			{
 				art[i] = obj.art[i];
 			}
+
+			numberofquotes = obj.numberofquotes;
+			attackQuotes = new string[numberofquotes];
+			attackedQuotes = new string[numberofquotes];
+			defenceQuotes = new string[numberofquotes];
+			specialQuotes = new string[numberofquotes];
+
+			for (size_t i = 0; i < numberofquotes; i++)
+			{
+				attackQuotes[i] = obj.attackQuotes[i];
+				attackedQuotes[i] = obj.attackedQuotes[i];
+				defenceQuotes[i] = obj.defenceQuotes[i];
+				specialQuotes[i] = obj.specialQuotes[i];
+			}
 		}
 
 		~Demon()
 		{
 			delete[] art;
+			delete[] attackedQuotes;
+			delete[] attackQuotes;
+			delete[] defenceQuotes;
+			delete[] specialQuotes;
 		}
 };
