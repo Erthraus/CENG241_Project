@@ -352,6 +352,12 @@ void Battle::selectEnemy()		//Function to select the Current enemy
 
 void Battle::enemyAttack()		//Algorithm for enemy behavior
 {
+	COORD pos;
+	pos.X = 100;
+	pos.Y = 10;
+	int size{ 1 };
+	string* text = new string[size];
+	text[0] = "AAAAAAAAAAA";
 	if (turn % 2 == 0)
 	{
 		if (timer > 30)
@@ -371,6 +377,9 @@ void Battle::enemyAttack()		//Algorithm for enemy behavior
 			else
 			{
 				currentEnemy.Attack(player);
+				setColor(3);
+				drawArr(text, size, pos);
+				Sleep(1400);
 				turn++;
 			}
 
