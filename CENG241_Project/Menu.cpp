@@ -13,12 +13,12 @@ void Menu::Start()		//Function output character selection menu
 	string characterConfirm;
 	int tempChoice;
 
-point:
+	point:
 	system("cls");
 	cout << "Choose your Character (0 - 4): ";
 	cin >> tempChoice;
-	Player* character = new Player(tempChoice);
-	if (tempChoice <= 4 && 0 <= tempChoice) {
+	if (isdigit(tempChoice) == 1 && tempChoice <= 4 && 0 <= tempChoice) {
+		Player* character = new Player(tempChoice);
 		pos.X = 5;
 		pos.Y = 4;
 		drawArr(character->art, character->artsize, pos);
@@ -26,7 +26,7 @@ point:
 		cout << endl <<"Character HP:" << character->getMaxHP();
 		cout << endl <<"Character AP:" << character->getattackPow();
 	
-	point2:
+		point2:
 		cout << "\nDo you confirm character?(y/n)";
 		cin >> characterConfirm;
 		if (characterConfirm == "y") {
@@ -47,8 +47,7 @@ point:
 	}
 	
 	else {
-		cout << "Wrong input!" << endl;
-		delete character;
+		cout << "Wrong input!!" << endl;
 		system("pause");
 		goto point;
 	}
@@ -88,6 +87,7 @@ void Menu::End()		//Function to output game status and input user choice to play
 		
 	}
 	cout << setw(50);
-	cout << "\nDo you want to play again (1 to yes, 0 to no): ";
+	gotoxy(pos.X-13, pos.Y+8);
+	cout << "Do you want to play again (1 to yes, 0 to no): ";
 	cin >> replay;
 }
