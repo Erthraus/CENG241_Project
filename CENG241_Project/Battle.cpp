@@ -144,7 +144,7 @@ void Battle::Controller()		//Function to get user inputs
 				else if (ch == 2)
 				{
 					player.Attack(currentEnemy);
-					dialogueAttacked();
+					dialogue(1);
 					if (currentEnemy.getHP() <= 0)
 					{
 						if (currentEnemyType == "imp")
@@ -171,12 +171,13 @@ void Battle::Controller()		//Function to get user inputs
 						{
 							winStatus = true;
 							gameison = false;
-							break;
+							return;
 						}
 
 						selectEnemy();
 
 					}
+					
 					turn++;
 				}
 
@@ -351,167 +352,23 @@ void Battle::selectEnemy()		//Function to select the Current enemy
 	}
 }
 
-void Battle::dialogue()		//Function to output dialogue
+void Battle::dialogue(int x)		//Function to output dialogue. 2 = attack, 1 = attacked, 0 = defence
 {
-	int i;
-	int xpos = 90;
-	string text{ "Baaargh!" };
-	string text2{ "I can smell your blood." };
-	string text3{ "I will devour you." };
-	string text4{ "Let me give you a little taste of Hell." };
-	if (currentEnemyType == "imp")
+	int xpos = WID / 3, ypos = LEN / 2;
+	string text = currentEnemy.Quote(x);
+	
+	for (int i=0; i < text.size(); i++)
 	{
-		xpos = 100;
-		for (i=0; i < text.size(); i++)
-		{
-			gotoxy(xpos, 10);
-			cout << text[i];
-			Sleep(75);
-			xpos++;
-		}
-	}
-	if (currentEnemyType == "vampire")
-	{
-		for (i = 0; i < text2.size(); i++)
-		{
-			gotoxy(xpos, 10);
-			cout << text2[i];
-			Sleep(75);
-			xpos++;
-		}
-	}
-	if (currentEnemyType == "cyclops")
-	{
-		for (i = 0; i < text3.size(); i++)
-		{
-			gotoxy(xpos, 10);
-			cout << text3[i];
-			Sleep(75);
-			xpos++;
-		}
-	}
-	if (currentEnemyType == "demon")
-	{
-		for (i = 0; i < text4.size(); i++)
-		{
-			gotoxy(xpos, 10);
-			cout << text4[i];
-			Sleep(75);
-			xpos++;
-		}
+		gotoxy(xpos, ypos);
+		cout << text[i];
+		Sleep(40);
+		xpos++;
 	}
 
 	Sleep(300);
 }
 
-void Battle::dialogueAttacked()		//Function to output dialogue
-{
-	int i;
-	int xpos = 90;
-	string text{ "AAAARGH!!!" };
-	string text2{ "You will pay for that." };
-	string text3{ "Nothing but a scratch." };
-	string text4{ "I won't go back to hell." };
-	if (currentEnemyType == "imp")
-	{
-		xpos = 100;
-		for (i = 0; i < text.size(); i++)
-		{
-			gotoxy(xpos, 10);
-			cout << text[i];
-			Sleep(75);
-			xpos++;
-		}
-	}
-	if (currentEnemyType == "vampire")
-	{
-		for (i = 0; i < text2.size(); i++)
-		{
-			gotoxy(xpos, 10);
-			cout << text2[i];
-			Sleep(75);
-			xpos++;
-		}
-	}
-	if (currentEnemyType == "cyclops")
-	{
-		for (i = 0; i < text3.size(); i++)
-		{
-			gotoxy(xpos, 10);
-			cout << text3[i];
-			Sleep(75);
-			xpos++;
-		}
-	}
-	if (currentEnemyType == "demon")
-	{
-		for (i = 0; i < text4.size(); i++)
-		{
-			gotoxy(xpos, 10);
-			cout << text4[i];
-			Sleep(75);
-			xpos++;
-		}
-	}
-
-	Sleep(300);
-}
-
-void Battle::dialogueHeal()		//Function to output dialogue
-{
-	int i;
-	int xpos = 90;
-	string text{ "Grrrrrgh..." };
-	string text2{ "Nothing a little blood can't fix." };
-	string text3{ "The likes of you cannot kill me." };
-	string text4{ "Underworld, grant me your aid!" };
-	if (currentEnemyType == "imp")
-	{
-		xpos = 100;
-		for (i = 0; i < text.size(); i++)
-		{
-			gotoxy(xpos, 10);
-			cout << text[i];
-			Sleep(75);
-			xpos++;
-		}
-	}
-	if (currentEnemyType == "vampire")
-	{
-		for (i = 0; i < text2.size(); i++)
-		{
-			gotoxy(xpos, 10);
-			cout << text2[i];
-			Sleep(75);
-			xpos++;
-		}
-	}
-	if (currentEnemyType == "cyclops")
-	{
-		for (i = 0; i < text3.size(); i++)
-		{
-			gotoxy(xpos, 10);
-			cout << text3[i];
-			Sleep(75);
-			xpos++;
-		}
-	}
-	if (currentEnemyType == "demon")
-	{
-		for (i = 0; i < text4.size(); i++)
-		{
-			gotoxy(xpos, 10);
-			cout << text4[i];
-			Sleep(75);
-			xpos++;
-		}
-	}
-
-	Sleep(300);
-}
-
-
-void Battle::enemyAttack()		//Algorithm for enemy behavior
+void Battle::enemyAttack()		//Enemy behavior
 {
 	if (turn % 2 == 0)
 	{
@@ -524,22 +381,22 @@ void Battle::enemyAttack()		//Algorithm for enemy behavior
 				if (rand() % 2) 
 				{
 				currentEnemy.Defence();
-				dialogueHeal();
-
+				dialogue(0);
 				}
+
 				else
 				{
-				
 				currentEnemy.Attack(player);
-				dialogue();
+				dialogue(2);
 				}
+
 				turn++;
 			}
 
 			else
 			{
 				currentEnemy.Attack(player);
-				dialogue();
+				dialogue(2);
 				turn++;
 			}
 
@@ -678,7 +535,7 @@ void Battle::update()	//For things which should be checked and updated constantl
 {
 	updateCtr();
 	Controller();
-	enemyAttack();
+	if(gameison) enemyAttack();
 }
 
 void Battle::draw()		//Draws frames

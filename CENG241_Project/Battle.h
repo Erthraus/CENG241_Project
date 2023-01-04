@@ -27,7 +27,7 @@ class Battle : public Scene
 		void enemyAttack();
 		void pauseMenu();
 		void updateCtr();
-		void dialogue();
+		void dialogue(int x);
 		void dialogueAttacked();
 		void dialogueHeal();
 
@@ -62,6 +62,4 @@ class Battle : public Scene
 		Character currentEnemy;
 		string currentEnemyType;
 		Player player{ characterChoice };
-
-		friend class Menu;
 };

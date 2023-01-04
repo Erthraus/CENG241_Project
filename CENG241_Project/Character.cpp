@@ -1,6 +1,7 @@
 #include "Character.h"
 #include<iostream>
 #include <cstdlib>
+#include <windows.h>
 
 void Character::Attack(Character &target) {
 	int randomAttack = attackPow + rand() % (attackCoef + 1);
@@ -18,4 +19,18 @@ void Character::Defence() {
 
 void Character::changeHP(int val, Character &target) {
 	target.setHP(target.getHP() - val);
+}
+
+string Character::Quote(int a)
+{
+	int quote = rand() % (numberofquotes);
+
+	if (a == 2)
+		return attackQuotes[quote];
+
+	else if (a == 1)
+		return attackedQuotes[quote];
+
+	else
+		return defenceQuotes[quote];
 }

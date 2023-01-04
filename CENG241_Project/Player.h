@@ -194,6 +194,7 @@ class Player: public Character
 				art[20] = "      /_/  \\_\\";
 			}
 		}
+		
 		~Player() {
 			delete[] art;
 		}

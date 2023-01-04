@@ -13,12 +13,14 @@ protected:
 	int originalAttackCoef;
 	int defencePow;
 	int healthCoef;
+	int numberofquotes = 0;
 
 public:
 	Character() = default;
 	Character(const Character& obj) = default;
 
 	//virtual void specialAbility();
+	string Quote(int a);
 	void Attack(Character& target);
 	void changeHP(int val, Character& target);
 	void Defence();
@@ -26,18 +28,21 @@ public:
 	void setattackCoef(int attackCoef) { this->attackCoef = attackCoef; }
 	void sethealthCoef(int healthCoef) { this->healthCoef = healthCoef; }
 	void setattackPow(int attackPow) { this->attackPow = attackPow; }
+	
 	int getHP() { return HP; }
 	int getattackCoef() { return attackCoef; }
 	int getOriginalAttackCoef() { return originalAttackCoef; }
 	int getMaxHP() { return maxHP; }
 	int gethealthCoef() { return healthCoef; }
 	int getattackPow() { return attackPow; }
+	
 	int artsize;
 	bool isDebuffed = false;
 	int debuffCtr = 0;
 
-	string* art;
-	string* attackQuote;
-	string* defenceQuote;
+	string* art{ nullptr };
+	string* attackQuotes{ nullptr };
+	string* defenceQuotes{ nullptr };
+	string* attackedQuotes{ nullptr };
 };
 

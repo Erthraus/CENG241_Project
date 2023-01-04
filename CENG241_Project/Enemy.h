@@ -14,9 +14,9 @@ public:
 			healthCoef = 1;
 			maxHP = HP;
 			originalAttackCoef = attackCoef;
+			
 			artsize = 9;
 			art = new string[artsize];
-
 			art[0] = "   |\\     ____";
 			art[1] = "   | \\.-./ .-'";
 			art[2] = "    \\ _  _(   ";
@@ -26,6 +26,16 @@ public:
 			art[6] = "    |  \\vvv   ";
 			art[7] = "    |  |__    ";
 			art[8] = "   /      `-. ";
+
+			numberofquotes = 1;
+			attackQuotes = new string[numberofquotes];
+			attackQuotes[0] = "Baaargh!";
+
+			attackedQuotes = new string[numberofquotes];
+			attackedQuotes[0] = "AAAARGH!!!";
+
+			defenceQuotes = new string[numberofquotes];
+			defenceQuotes[0] = "Grrrrrgh...";
 		}
 		Imp(const Imp& obj)
 		{
@@ -44,11 +54,26 @@ public:
 			{
 				art[i] = obj.art[i];
 			}
+
+			numberofquotes = obj.numberofquotes;
+			attackQuotes = new string[numberofquotes];
+			attackedQuotes = new string[numberofquotes];
+			defenceQuotes = new string[numberofquotes];
+
+			for (size_t i = 0; i < numberofquotes; i++)
+			{
+				attackQuotes[i] = obj.attackQuotes[i];
+				attackedQuotes[i] = obj.attackedQuotes[i];
+				defenceQuotes[i] = obj.defenceQuotes[i];
+			}
 		}
 
 		~Imp()
 		{
 			delete[] art;
+			delete[] attackedQuotes;
+			delete[] attackQuotes;
+			delete[] defenceQuotes;
 		}
 	
 };	
@@ -77,6 +102,16 @@ class Vampire :public Character
 			art[6] = "  \\ \\v-.-v/ /  ";
 			art[7] = "   \\ `===' /   ";
 			art[8] = "    `-----`    ";
+
+			numberofquotes = 1;
+			attackQuotes = new string[numberofquotes];
+			attackQuotes[0] = "I can smell your blood";
+
+			attackedQuotes = new string[numberofquotes];
+			attackedQuotes[0] = "You will pay for that";
+
+			defenceQuotes = new string[numberofquotes];
+			defenceQuotes[0] = "Nothing a little blood can't fix";
 		}
 
 		Vampire(const Vampire& obj)
@@ -96,11 +131,26 @@ class Vampire :public Character
 			{
 				art[i] = obj.art[i];
 			}
+
+			numberofquotes = obj.numberofquotes;
+			attackQuotes = new string[numberofquotes];
+			attackedQuotes = new string[numberofquotes];
+			defenceQuotes = new string[numberofquotes];
+
+			for (size_t i = 0; i < numberofquotes; i++)
+			{
+				attackQuotes[i] = obj.attackQuotes[i];
+				attackedQuotes[i] = obj.attackedQuotes[i];
+				defenceQuotes[i] = obj.defenceQuotes[i];
+			}
 		}
 
 		~Vampire()
 		{
 			delete[] art;
+			delete[] attackedQuotes;
+			delete[] attackQuotes;
+			delete[] defenceQuotes;
 		}
 };
 
@@ -139,6 +189,16 @@ class Cyclops :public Character
 			art[17] = "       `.  .'      `.  /		  ";
 			art[18] = "         \\           .'		  ";
 			art[19] = "          `-..___..-`		  ";
+
+			numberofquotes = 1;
+			attackQuotes = new string[numberofquotes];
+			attackQuotes[0] = "I will devour you";
+
+			attackedQuotes = new string[numberofquotes];
+			attackedQuotes[0] = "Nothing but a scratch";
+
+			defenceQuotes = new string[numberofquotes];
+			defenceQuotes[0] = "The likes of you cannot kill me";
 		}
 
 		Cyclops(const Cyclops& obj)
@@ -158,11 +218,26 @@ class Cyclops :public Character
 			{
 				art[i] = obj.art[i];
 			}
+
+			numberofquotes = obj.numberofquotes;
+			attackQuotes = new string[numberofquotes];
+			attackedQuotes = new string[numberofquotes];
+			defenceQuotes = new string[numberofquotes];
+
+			for (size_t i = 0; i < numberofquotes; i++)
+			{
+				attackQuotes[i] = obj.attackQuotes[i];
+				attackedQuotes[i] = obj.attackedQuotes[i];
+				defenceQuotes[i] = obj.defenceQuotes[i];
+			}
 		}
 
 		~Cyclops()
 		{
 			delete[] art;
+			delete[] attackedQuotes;
+			delete[] attackQuotes;
+			delete[] defenceQuotes;
 		}
 };
 
@@ -196,6 +271,16 @@ class Demon :public Character
 			art[12] = "        |     |		   ";
 			art[13] = "        |_____|		   ";
 			art[14] = "        |_____|         ";
+
+			numberofquotes = 1;
+			attackQuotes = new string[numberofquotes];
+			attackQuotes[0] = "Let me give you a little taste of Hell";
+
+			attackedQuotes = new string[numberofquotes];
+			attackedQuotes[0] = "I won't go back to hell";
+
+			defenceQuotes = new string[numberofquotes];
+			defenceQuotes[0] = "Underworld, grant me your aid!";
 		}
 
 		Demon(const Demon& obj)
@@ -215,10 +300,25 @@ class Demon :public Character
 			{
 				art[i] = obj.art[i];
 			}
+
+			numberofquotes = obj.numberofquotes;
+			attackQuotes = new string[numberofquotes];
+			attackedQuotes = new string[numberofquotes];
+			defenceQuotes = new string[numberofquotes];
+
+			for (size_t i = 0; i < numberofquotes; i++)
+			{
+				attackQuotes[i] = obj.attackQuotes[i];
+				attackedQuotes[i] = obj.attackedQuotes[i];
+				defenceQuotes[i] = obj.defenceQuotes[i];
+			}
 		}
 
 		~Demon()
 		{
 			delete[] art;
+			delete[] attackedQuotes;
+			delete[] attackQuotes;
+			delete[] defenceQuotes;
 		}
 };

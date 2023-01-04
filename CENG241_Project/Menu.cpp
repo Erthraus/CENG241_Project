@@ -30,6 +30,7 @@ point:
 		cin >> characterConfirm;
 		if (characterConfirm == "y") {
 			characterChoice = tempChoice;
+			delete character;
 			system("cls");
 		}
 		else if (characterConfirm == "n") {
