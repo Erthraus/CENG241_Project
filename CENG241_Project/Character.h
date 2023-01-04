@@ -19,7 +19,7 @@ public:
 	Character() = default;
 	Character(const Character& obj) = default;
 
-	//virtual void specialAbility();
+	virtual void specialAbility(Character& ost);
 	string Quote(int a);
 	void Attack(Character& target);
 	void changeHP(int val, Character& target);
