@@ -94,6 +94,6 @@ void Menu::End()		//Function to output game status and input user choice to play
 	}
 
 	gotoxy(pos.X-13, pos.Y+8);
-	cout << "Do you want to play again (1 to yes, 0 to no): ";		//Kontrol Mekanizmas�
+	cout << "Do you want to play again (1 to yes, 0 to no): ";		//Kontrol Mekanizmasi
 	cin >> replay;
 }

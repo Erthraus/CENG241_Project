@@ -29,6 +29,19 @@ void Scene::drawArr(std::string arr[], int size, COORD pos)		//Function to draw 
 	}
 }
 
+void Scene::write(std::string str, COORD pos)		//Function to write strings letter by letter
+{
+	for (int i = 0; i < str.size(); i++)
+	{
+		gotoxy(pos.X, pos.Y);
+		std::cout << str[i];
+		Sleep(20);
+		pos.X++;
+	}
+
+	Sleep(300);
+}
+
 int Scene::characterChoice = 0;
 int Scene::replay = 1;
 bool Scene::gameison = true;
