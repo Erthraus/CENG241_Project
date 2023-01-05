@@ -21,7 +21,7 @@ void Menu::Start()		//Function output character selection menu
 		pos.X = 5;
 		pos.Y = 4;
 		drawArr(character->art, character->artsize, pos);
-		setColor(5);
+		setColor(7);
 		cout << endl << endl << "Character name: " << character->name;
 		setColor(2);
 		cout << endl <<"Character HP: " << character->getMaxHP();
@@ -29,6 +29,10 @@ void Menu::Start()		//Function output character selection menu
 		cout << endl <<"Character Attack Power: " << character->getattackPow() << " - " << character->getattackPow() + character->getattackCoef();
 		setColor(3);
 		cout << endl <<"Character Defence Power: " << character->getDefencePow() << " - " << character->getDefencePow() + character->gethealthCoef();
+		setColor(5);
+		cout << endl << "Character Debuff Power: " << character->debuffCoef;
+		setColor(8);
+		cout << endl << "Character Buff Power: " << character->buffCoef;
 	
 		point2:
 		setColor();
@@ -94,6 +98,6 @@ void Menu::End()		//Function to output game status and input user choice to play
 	}
 
 	gotoxy(pos.X-13, pos.Y+8);
-	cout << "Do you want to play again (1 to yes, 0 to no): ";		//Kontrol Mekanizmas�
+	cout << "Do you want to play again (1 to yes, 0 to no): ";		//Kontrol Mekanizmasi
 	cin >> replay;
 }

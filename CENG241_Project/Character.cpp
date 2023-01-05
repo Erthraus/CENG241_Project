@@ -53,6 +53,5 @@ void Character::Burn() {
 	else
 	{
 		isburning = false;
-		system("cls");
 	}
 }

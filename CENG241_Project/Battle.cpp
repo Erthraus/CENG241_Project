@@ -153,16 +153,22 @@ void Battle::Controller()		//Function to get user inputs
 		case '\r':				// \r means enter
 			if (turn % 2)
 			{
+				playerHealth0 = player.getHP();
+				enemyHealth0 = currentEnemy->getHP();
+
 				if (ch == 3)
 				{
 					player.Defence();
 					turn++;
+					playerHealth1 = player.getHP();
+					enemyHealth1 = currentEnemy->getHP();
 				}
 
 				else if (ch == 2)
 				{
 					player.Attack(*currentEnemy);
-					dialogue(1);
+					playerHealth1 = player.getHP();
+					enemyHealth1 = currentEnemy->getHP();
 					if (currentEnemy->getHP() <= 0)
 					{
 						if (currentEnemyType == "imp")
@@ -258,10 +264,10 @@ void Battle::generateEnemies()		//Function to generate a horde of enemies
 {
 	int impcount, vampirecount, cyclopscount, demoncount;
 
-	impcount = rand() % 5 + 1;
-	vampirecount = rand() % 4 + 1;
-	cyclopscount = rand() % 3 + 1;
-	demoncount = rand() % 2 + 1;
+	impcount = rand() % 3 + 1;
+	vampirecount = rand() % 2 + 1;
+	cyclopscount = rand() % 2 + 1;
+	demoncount = rand() % 1 + 1;
 	totalEnemies = impcount + vampirecount + cyclopscount + demoncount;
 
 	Imp* imparr = new Imp[impcount];
@@ -386,18 +392,12 @@ void Battle::selectEnemy()		//Function to select the Current enemy
 
 void Battle::dialogue(int x)		//Function to output dialogue. 2 = attack, 1 = attacked, 0 = defence
 {
-	int xpos = 7 * WID / 10, ypos = LEN / 10;
+	COORD pos;
+	pos.X = 7 * WID / 10;
+	pos.Y = LEN / 10;
 	string text = currentEnemy->Quote(x);
 	
-	for (int i=0; i < text.size(); i++)
-	{
-		gotoxy(xpos, ypos);
-		cout << text[i];
-		Sleep(40);
-		xpos++;
-	}
-
-	Sleep(300);
+	write(text, pos);
 }
 
 void Battle::enemyAttack()		//Enemy behavior
@@ -408,6 +408,8 @@ void Battle::enemyAttack()		//Enemy behavior
 		{
 			timer = 0;
 			int x = rand() % 11;
+			playerHealth0 = player.getHP();
+			enemyHealth0 = currentEnemy->getHP();
 
 			if (currentEnemy->getMaxHP() * 6 / 10 >= currentEnemy->getHP())
 			{
@@ -436,8 +438,26 @@ void Battle::enemyAttack()		//Enemy behavior
 			{
 				if (x > 8)
 				{
-					currentEnemy->specialAbility(player);
-					dialogue(3);
+					if (currentEnemyType == "cyclops")
+					{
+						if (currentEnemy->getHP() != currentEnemy->getMaxHP())
+						{
+							currentEnemy->specialAbility(player);
+							dialogue(3);
+						}
+
+						else
+						{
+							currentEnemy->Attack(player);
+							dialogue(2);
+						}
+					}
+
+					else
+					{
+						currentEnemy->specialAbility(player);
+						dialogue(3);
+					}
 				}
 				
 				else
@@ -455,6 +475,8 @@ void Battle::enemyAttack()		//Enemy behavior
 				winStatus = false;
 			}
 
+			playerHealth1 = player.getHP();
+			enemyHealth1 = currentEnemy->getHP();
 			system("cls");
 		}
 
@@ -517,7 +539,6 @@ void Battle::updateCtr()
 			{
 				player.setattackCoef(player.getOriginalAttackCoef());
 				player.isBuffed = false;
-				system("cls");
 			}
 		}
 
@@ -532,7 +553,6 @@ void Battle::updateCtr()
 			{
 				currentEnemy->setattackCoef(currentEnemy->getattackCoef());
 				currentEnemy->isDebuffed = false;
-				system("cls");
 			}
 		}
 
@@ -541,8 +561,58 @@ void Battle::updateCtr()
 			player.Burn();
 		}
 
+		announce();
+		system("cls");
 		previousturn = turn;
 	}
+}
+
+void Battle::announce()
+{
+	COORD pos;
+	pos.X = 3 * WID / 7;
+	pos.Y = 3 * LEN / 4;
+
+	string announcement;
+	int pdamage = playerHealth0 - playerHealth1;
+	int edamage = enemyHealth0 - enemyHealth1;
+
+	if(edamage > 0)
+	{
+		if(enemyHealth0 != edamage) dialogue(1);
+		Sleep(100);
+		setColor(13);
+		announcement = "You dealt " + to_string(edamage) + " damage to enemy";
+		write(announcement, pos);
+		pos.Y--;
+	}
+	
+	else if (edamage < 0)
+	{
+		setColor(8);
+		announcement = "Enemy healed " + to_string(-edamage) + " HP";
+		write(announcement, pos);
+		pos.Y--;
+	}
+
+	if (pdamage > 0)
+	{
+		setColor(14);
+		announcement = "Enemy dealt " + to_string(pdamage) + " damage to you";
+		write(announcement, pos);
+		pos.Y--;
+	}
+
+	else if (pdamage < 0)
+	{
+		setColor(11);
+		announcement = "You healed " + to_string(-pdamage) + " HP";
+		write(announcement, pos);
+		pos.Y--;
+	}
+
+	Sleep(300);
+	setColor();
 }
 
 void Battle::setup()		//Sets up the game
@@ -589,7 +659,7 @@ void Battle::setup()		//Sets up the game
 
 void Battle::update()	//For things which should be checked and updated constantly
 {
-	updateCtr();
+	if (gameison) updateCtr();
 	Controller();
 	if(gameison) enemyAttack();
 }

@@ -15,6 +15,7 @@ class Battle : public Scene
 {
 	private:
 		int ch = 0, timer = 0;
+		int enemyHealth0, enemyHealth1, playerHealth0, playerHealth1;
 		void drawMap();
 		void drawUI();
 		void Controller();
@@ -28,6 +29,7 @@ class Battle : public Scene
 		void pauseMenu();
 		void updateCtr();
 		void dialogue(int x);
+		void announce();
 
 		string* attack{ nullptr };
 		string* defence{ nullptr };

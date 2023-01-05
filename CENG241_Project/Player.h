@@ -11,7 +11,7 @@ class Player: public Character
 		bool isBuffed = false;
 		int buffCtr = 0;
 		int buffCoef = 50;
-		int debuffCoef = 30;
+		int debuffCoef = 50;
 
 		void specialAbility(Character& ost) override;
 		void Buff();
@@ -33,11 +33,13 @@ class Player: public Character
 		Player(int chc) 
 		{
 			if (chc == 0) {
-				HP = 100;
-				attackPow = 15;
+				HP = 200;
+				attackPow = 25;
 				defencePow = 30;
-				attackCoef = 1;
-				healthCoef = 2;
+				attackCoef = 15;
+				healthCoef = 20;
+				buffCoef = 50;
+				debuffCoef = 30;
 				name = "DefenderPoky";
 				maxHP = HP;
 				originalAttackCoef = attackCoef;
@@ -65,77 +67,85 @@ class Player: public Character
 				art[19] = "      |      /____/\\____\\";
 			}
 			else if (chc == 1) {				
-				HP = 50;
-				attackPow = 20;
+				HP = 100;
+				attackPow = 50;
 				defencePow = 20;
-				attackCoef = 1;
-				healthCoef = 3;
+				attackCoef = 20;
+				healthCoef = 10;
+				buffCoef = 100;
+				debuffCoef = 10;
 				name = "FighterPoky";
 				maxHP = HP;
 				originalAttackCoef = attackCoef;
 				artsize = 20;
 				art = new string[artsize];
-				art[0] =  " /\\			{}				";
-				art[1] =  " ||          .--.				";
-				art[2] =  " ||         /.--.\\			";
-				art[3] =  " ||         |====|			";
-				art[4] =  " ||         |`::`|			";
-				art[5] =  "_||_    .-;`\\..../`;_.-^-._	";
-				art[6] =  " /\\\\   /  |...::..|`   :   `|	";
-				art[7] =  " |:'\\ |   /'''::''|   .:.   |	";
-				art[8] =  "  \\ /\\;-,/\\   ::  |..:::::..|	";
-				art[9] =  "   \\ <` >  >._::_.| ':::::' |	";
-				art[10] = "    `""` /   ^^  |   ':'   | ";
-				art[11] = "         |       \\    :    / ";
-				art[12] = "         |        \\   :   /	";
-				art[13] = "         |___/\\___|`-.:.-`	";
-				art[14] = "          \\_ || _/    `		";
-				art[15] = "          <_ >< _>			";
-				art[16] = "          |  ||  |			";
-				art[17] = "          |  ||  |			";
-				art[18] = "         _\\.:||:./_			";
-				art[19] = "		   /____/\\____\\			";
+				art[0] =  "      _,.";
+				art[1] =  "    ,` -.)";
+				art[2] =  "   ( _/-\\\\-._";
+				art[3] =  "  /,|`--._,-^|            ,";
+				art[4] =  "  \\_| |`-._/||          ,'|";
+				art[5] =  "    |  `-, / |         /  /";
+				art[6] =  "    |     || |        /  /";
+				art[7] =  "     `r-._||/   __   /  /";
+				art[8] =  " __,-<_     )`-/  `./  /";
+				art[9] =  "'  \\   `---'   \\   /  /";
+				art[10] = "    |           |./  /";
+				art[11] = "    /           //  /";
+				art[12] = "\\_/' \\         |/  /";
+				art[13] = " |    |   _,^-'/  /";
+				art[14] = " |    , ``  (\\/  /_";
+				art[15] = "  \\,.->._    \\X-=/^";
+				art[16] = "  (  /   `-._//^`";
+				art[17] = "   `Y-.____(__}";
+				art[18] = "    |     {__)";
+				art[19] = "          ()";
 
 			}
 			else if (chc == 2) {
-				HP = 55;
-				attackPow = 15;
-				defencePow = 10;
-				attackCoef = 2;
-				healthCoef = 2;
-				name = "ArcherPoky";
+				HP = 80;
+				attackPow = 70;
+				defencePow = 20;
+				attackCoef = 30;
+				healthCoef = 20;
+				buffCoef = 50;
+				debuffCoef = 50;
+				name = "CentaurPoky";
 				maxHP = HP;
 				originalAttackCoef = attackCoef;
 
-				artsize = 19;
+				artsize = 21;
 				art = new string[artsize];
-				art[0] = "										  / -----------| .					";
-				art[1] =  "       \\\\                             /			     | .				";
-				art[2] =  "         \\\\                         /					   |\\				";
-				art[3] =  "          \\|                      /					     |\\				";
-				art[4] =  "         \\#####\\                /						     ||				";
-				art[5] =  "     ==###########>           /				 			 ||				";
-				art[6] =  "      \\##==      \\	      /								 ||				";
-				art[7] =  " ______ =       =|__		/___							 ||				";
-				art[8] =  " ,--' ,----`-,__ ___/'----,-`-==============================##==========> ";
-				art[9] =  " \\              '        ##_______ ______   ______,--,____,=##,__			";
-				art[10] = " `,    __==    ___,-,__,--'#'  ==='      `-'              | ##,-/		";
-				art[11] = "  `-,____,---'       \\####\\              |        ____,--\\_##,/			";
-				art[12] = "      #_              |##   \\  _____,---==,__,---'         ##			";
-				art[13] = "      #              ]===--==\\                            ||				";
-				art[14] = "      #,             ]         \\                          ||				";
-				art[15] = "       #_            |           \\                        ||				";
-				art[16] = "        ##_       __/'             \\                     /||				";
-				art[17] = "         ####='     |                \\                 |/				";
-				art[18] = "      ###=======]                       \\ ---------- /|.					";
+				art[0] =  " *                       *";
+				art[1] =  "    *                 *";
+				art[2] =  "   )       (\\___/)     (";
+				art[3] =  "* /(       \\ (. .)     )\\ *";
+				art[4] =  "  # )      c\\   >'    ( #";
+				art[5] =  "   '         )-_/      '";
+				art[6] =  " \\\\|,    ____| |__    ,|//";
+				art[7] =  "   \ )  (  `  ~   )  ( /";
+				art[8] =  "    #\\ / /| . ' .) \\ /#";
+				art[9] =  "    | \\ / )   , / \\ / |";
+				art[10] = "     \\,/ ;;,,;,;   \\,/";
+				art[11] = "      _,#;,;;,;,";
+				art[12] = "     /,i;;;,,;#,;";
+				art[13] = "    //  %;;,;,;;,;";
+				art[14] = "   ((    ;#;,;%;;,,";
+				art[15] = "  _//     ;,;; ,#;,";
+				art[16] = " /_)      #,;    ))";
+				art[17] = "         //      \\|_";
+				art[18] = "         \\|_      |#\\";
+				art[19] = "          |#\\      -\"";
+				art[20] = "           -\"";
 
 			}
 			else if (chc == 3) {
-				HP = 50;
-				attackPow = 10;
-				defencePow = 20;
-				attackCoef = 2;
-				healthCoef = 2;
+				HP = 100;
+				attackPow = 40;
+				defencePow = 25;
+				attackCoef = 20;
+				healthCoef = 25;
+				buffCoef = 60;
+				debuffCoef = 40;
 				name = "WizardPoky";
 				maxHP = HP;
 				originalAttackCoef = attackCoef;
@@ -164,10 +174,12 @@ class Player: public Character
 			}
 			else if (chc == 4) {
 				HP = 800;
-				attackPow = 60;
-				defencePow = 40;
+				attackPow = 100;
+				defencePow = 50;
 				attackCoef = 10;
-				healthCoef = 1;
+				healthCoef = 10;
+				buffCoef = 20;
+				debuffCoef = 20;
 				name = "TankPoky";
 				maxHP = HP;
 				originalAttackCoef = attackCoef;
