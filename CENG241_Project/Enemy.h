@@ -10,10 +10,10 @@ public:
 		Imp()
 		{
 			HP = 40;
-			attackPow = 11;
-			defencePow = 5;
-			attackCoef = 3;
-			healthCoef = 1;
+			attackPow = 8;
+			defencePow = 10;
+			attackCoef = 12;
+			healthCoef = 5;
 			maxHP = HP;
 			originalAttackCoef = attackCoef;
 			
@@ -40,7 +40,7 @@ public:
 			defenceQuotes[0] = "Grrrrrgh...";
 
 			specialQuotes = new string[numberofquotes];
-			specialQuotes[0] = "SPECIAL!!";
+			specialQuotes[0] = "HRRRRRR!!";
 		}
 		Imp(const Imp& obj)
 		{
@@ -83,9 +83,6 @@ public:
 			delete[] defenceQuotes;
 			delete[] specialQuotes;
 		}
-		
-		void Imp_Skıll();
-		void setoac(int org) { this->originalAttackCoef = org; }
 };	
 
 class Vampire :public Character
@@ -94,11 +91,11 @@ class Vampire :public Character
 		void specialAbility(Character& ost) override;
 		Vampire()
 		{
-			HP = 20;
-			attackPow = 3;
-			defencePow = 3;
-			attackCoef = 5;
-			healthCoef = 2;
+			HP = 70;
+			attackPow = 20;
+			defencePow = 10;
+			attackCoef = 10;
+			healthCoef = 5;
 			maxHP = HP;
 			originalAttackCoef = attackCoef;
 			artsize = 9;
@@ -124,7 +121,7 @@ class Vampire :public Character
 			defenceQuotes[0] = "Nothing a little blood can't fix";
 
 			specialQuotes = new string[numberofquotes];
-			specialQuotes[0] = "SPECIAL!!";
+			specialQuotes[0] = "Let me taste you!!";
 		}
 
 		Vampire(const Vampire& obj)
@@ -176,11 +173,11 @@ class Cyclops :public Character
 		void specialAbility(Character& ost) override;
 		Cyclops()
 		{
-			HP = 30;
-			attackPow = 5;
-			defencePow = 1;
+			HP = 100;
+			attackPow = 20;
+			defencePow = 20;
 			attackCoef = 5;
-			healthCoef = 2;
+			healthCoef = 5;
 			maxHP = HP;
 			originalAttackCoef = attackCoef;
 			artsize = 20;
@@ -217,7 +214,7 @@ class Cyclops :public Character
 			defenceQuotes[0] = "The likes of you cannot kill me";
 
 			specialQuotes = new string[numberofquotes];
-			specialQuotes[0] = "SPECIAL!!";
+			specialQuotes[0] = "RAAWWRR";
 		}
 
 		Cyclops(const Cyclops& obj)
@@ -270,11 +267,11 @@ class Demon :public Character
 
 		Demon()
 		{
-			HP = 50;
-			attackPow = 10;
-			defencePow = 1;
-			attackCoef = 5;
-			healthCoef = 2;
+			HP = 100;
+			attackPow = 25;
+			defencePow = 15;
+			attackCoef = 15;
+			healthCoef = 5;
 			maxHP = HP;
 			originalAttackCoef = attackCoef;
 			artsize = 15;
@@ -295,18 +292,22 @@ class Demon :public Character
 			art[13] = "        |_____|		   ";
 			art[14] = "        |_____|         ";
 
-			numberofquotes = 1;
+			numberofquotes = 2;
 			attackQuotes = new string[numberofquotes];
 			attackQuotes[0] = "Let me give you a little taste of Hell";
+			attackQuotes[1] = "Bow before me";
 
 			attackedQuotes = new string[numberofquotes];
 			attackedQuotes[0] = "I won't go back to hell";
+			attackedQuotes[1] = "Not again!";
 
 			defenceQuotes = new string[numberofquotes];
 			defenceQuotes[0] = "Underworld, grant me your aid!";
+			defenceQuotes[1] = "Your scream is like music to me";
 
 			specialQuotes = new string[numberofquotes];
-			specialQuotes[0] = "SPECIAL!!";
+			specialQuotes[0] = "BURN with Eternal Fire!!";
+			specialQuotes[1] = "Feel the Pain!";
 		}
 
 		Demon(const Demon& obj)

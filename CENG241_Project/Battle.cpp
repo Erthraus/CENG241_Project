@@ -167,7 +167,6 @@ void Battle::Controller()		//Function to get user inputs
 				else if (ch == 2)
 				{
 					player.Attack(*currentEnemy);
-					dialogue(1);
 					playerHealth1 = player.getHP();
 					enemyHealth1 = currentEnemy->getHP();
 					if (currentEnemy->getHP() <= 0)
@@ -265,10 +264,10 @@ void Battle::generateEnemies()		//Function to generate a horde of enemies
 {
 	int impcount, vampirecount, cyclopscount, demoncount;
 
-	impcount = rand() % 5 + 1;
-	vampirecount = rand() % 4 + 1;
-	cyclopscount = rand() % 3 + 1;
-	demoncount = rand() % 2 + 1;
+	impcount = rand() % 3 + 1;
+	vampirecount = rand() % 2 + 1;
+	cyclopscount = rand() % 2 + 1;
+	demoncount = rand() % 1 + 1;
 	totalEnemies = impcount + vampirecount + cyclopscount + demoncount;
 
 	Imp* imparr = new Imp[impcount];
@@ -439,8 +438,26 @@ void Battle::enemyAttack()		//Enemy behavior
 			{
 				if (x > 8)
 				{
-					currentEnemy->specialAbility(player);
-					dialogue(3);
+					if (currentEnemyType == "cyclops")
+					{
+						if (currentEnemy->getHP() != currentEnemy->getMaxHP())
+						{
+							currentEnemy->specialAbility(player);
+							dialogue(3);
+						}
+
+						else
+						{
+							currentEnemy->Attack(player);
+							dialogue(2);
+						}
+					}
+
+					else
+					{
+						currentEnemy->specialAbility(player);
+						dialogue(3);
+					}
 				}
 				
 				else
@@ -562,6 +579,8 @@ void Battle::announce()
 
 	if(edamage > 0)
 	{
+		if(enemyHealth0 != edamage) dialogue(1);
+		Sleep(100);
 		setColor(13);
 		announcement = "You dealt " + to_string(edamage) + " damage to enemy";
 		write(announcement, pos);
@@ -640,7 +659,7 @@ void Battle::setup()		//Sets up the game
 
 void Battle::update()	//For things which should be checked and updated constantly
 {
-	updateCtr();
+	if (gameison) updateCtr();
 	Controller();
 	if(gameison) enemyAttack();
 }
