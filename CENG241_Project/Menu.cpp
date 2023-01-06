@@ -10,14 +10,14 @@ void Menu::Start()		//Function output character selection menu
 	setColor();
 	COORD pos;
 	string characterConfirm;
-	int tempChoice;
+	string tempChoice = "a";
 
 	point:
 	system("cls");
 	cout << "Choose your Character (0 - 4): ";
 	cin >> tempChoice;
-	if (tempChoice <= 4 && 0 <= tempChoice) {
-		Player* character = new Player(tempChoice);
+	if (tempChoice =="1" || tempChoice == "2" || tempChoice == "3" || tempChoice == "4" || tempChoice == "0") {
+		Player* character = new Player(stoi(tempChoice));
 		pos.X = 5;
 		pos.Y = 4;
 		drawArr(character->art, character->artsize, pos);
@@ -39,7 +39,7 @@ void Menu::Start()		//Function output character selection menu
 		cout << "\n\nDo you confirm character?(y/n): ";
 		cin >> characterConfirm;
 		if (characterConfirm == "y") {
-			characterChoice = tempChoice;
+			characterChoice = stoi(tempChoice);
 			delete character;
 			system("cls");
 		}
@@ -98,6 +98,15 @@ void Menu::End()		//Function to output game status and input user choice to play
 	}
 
 	gotoxy(pos.X-13, pos.Y+8);
+	string chc;
+	point3:
 	cout << "Do you want to play again (1 to yes, 0 to no): ";		//Kontrol Mekanizmasi
-	cin >> replay;
+	cin >> chc;
+	if (chc == "1" || chc == "0")
+		replay = stoi(chc);
+	else {
+		cout << "Wrong input. Please try again! " << endl;
+		system("pause");
+		goto point3;
+	}
 }

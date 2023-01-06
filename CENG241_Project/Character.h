@@ -18,6 +18,9 @@ protected:
 public:
 	Character() = default;
 	Character(const Character& obj) = default;
+	virtual ~Character() {
+
+	}
 
 	virtual void specialAbility(Character& ost) = 0;
 	string Quote(int a);
