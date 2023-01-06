@@ -8,7 +8,7 @@ and win by eliminating all monsters or if the enemies manage to
 bring down the player’s health to zero, the player will lose. Enemies
 will either attack or defence on their turns.
 
-• Mustafa Kemal ÖZ 
-• Arda Celal KAPLAN 
-• Ege ALTUĞ 
-• Tuna YAVUZ
+* Mustafa Kemal ÖZ 
+* Arda Celal KAPLAN 
+* Ege ALTUĞ 
+* Tuna YAVUZ
