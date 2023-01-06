@@ -581,7 +581,7 @@ void Battle::announce()
 	{
 		if(enemyHealth0 != edamage) dialogue(1);
 		Sleep(100);
-		setColor(13);
+		setColor(15);
 		announcement = "You dealt " + to_string(edamage) + " damage to enemy";
 		write(announcement, pos);
 		pos.Y--;
@@ -589,7 +589,7 @@ void Battle::announce()
 	
 	else if (edamage < 0)
 	{
-		setColor(8);
+		setColor(7);
 		announcement = "Enemy healed " + to_string(-edamage) + " HP";
 		write(announcement, pos);
 		pos.Y--;
@@ -597,7 +597,7 @@ void Battle::announce()
 
 	if (pdamage > 0)
 	{
-		setColor(14);
+		setColor(12);
 		announcement = "Enemy dealt " + to_string(pdamage) + " damage to you";
 		write(announcement, pos);
 		pos.Y--;
@@ -644,17 +644,17 @@ void Battle::setup()		//Sets up the game
 	defence[3] = "| /   |      |    ";
 	defence[4] = "|/    -----  |    ";
 
-	buff[0] = "|-\\    |     |   |---- ";
-	buff[1] = "|  \\   |     |   |     ";
-	buff[2] = "|--->  |     |   |--    ";
-	buff[3] = "|  /   |     |   |      ";
-	buff[4] = "|_/    |_____|   |      ";
+	buff[0] = "|--\\   |     |   |---- ";
+	buff[1] = "|   >  |     |   |     ";
+	buff[2] = "|--<   |     |   |--    ";
+	buff[3] = "|   >  |     |   |      ";
+	buff[4] = "|--/   |_____|   |      ";
 	
-	debuff[0] = "|\\    |-\\     |----";
-	debuff[1] = "| \\   |  \\    |    ";
-	debuff[2] = "|  |  |--->   |--    ";
-	debuff[3] = "| /   |  /    |      ";
-	debuff[4] = "|/    |_/     |      ";
+	debuff[0] = "|\\     |--\\    |----";
+	debuff[1] = "| \\    |   >   |    ";
+	debuff[2] = "|  |   |--<    |--    ";
+	debuff[3] = "| /    |   >   |      ";
+	debuff[4] = "|/     |--/    |      ";
 }
 
 void Battle::update()	//For things which should be checked and updated constantly
